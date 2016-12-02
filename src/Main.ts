@@ -117,6 +117,36 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene(): void {
+        var user = new User();
+        user.setinformation("982049377")
+        var guanyu = new Hero();
+        guanyu.setinformation("001", "关羽", 95, 85, heroQualitySort.S);
+        var qinglongyanyuedao = new Equipment();
+        qinglongyanyuedao.setinformation("we001", 10, 0, "青龙偃月刀", equipmentQualitySort.Story);
+        var atkCrystal = new Crystal();
+        atkCrystal.setinformation("atk001", 5, 0, "攻击宝石")
+
+        var i = user.fightPower;
+        console.log("没英雄战斗力" + i);
+
+        user.addHero(guanyu);
+        user.inToTeam(guanyu);
+        i = user.fightPower;
+        console.log("关羽上阵战斗力" + i);
+
+        guanyu.addEquipment(qinglongyanyuedao);
+        i = user.fightPower;
+        console.log("关羽装备青龙偃月刀上阵战斗力" + i);
+
+        qinglongyanyuedao.addCrystal(atkCrystal);
+        i = user.fightPower;
+        console.log("关羽装备青龙偃月刀（镶嵌攻击宝石1颗）上阵战斗力" + i);
+
+
+
+
+
+
         /* 测试Bignumber
          console.log(Bignumber.fold);
          Bignumber.fold=10;
