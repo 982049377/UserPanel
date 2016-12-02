@@ -101,10 +101,14 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
-        var s = new Bignumber(10);
+        console.log(Bignumber.fold);
+        Bignumber.fold = 10;
+        console.log(Bignumber.fold);
+        var s = new Bignumber();
         s.setNumber(99);
         var t = 100;
-        var w = new Bignumber(10);
+        var w = new Bignumber();
+        ;
         w.setNumber(100);
         s.addNumber(t);
         console.log(s.toString());

@@ -117,23 +117,27 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene(): void {
-        var s: Bignumber = new Bignumber(10);
-        s.setNumber(99);
-        var t = 100;
-        var w: Bignumber = new Bignumber(10);
-        w.setNumber(100);
-        s.addNumber(t);
-        console.log(s.toString());
-        s.setNumber(99);
-        s.subtractNumber(t);
-        console.log(s.toString());
-        s.setNumber(99);
-        s.addBigNumber(w);
-        console.log(s.toString());
-        s.setNumber(99);
-        s.subtractBigNumber(w);
-        console.log(s.toString());
-        s.setNumber(99);
+        /* 测试Bignumber
+         console.log(Bignumber.fold);
+         Bignumber.fold=10;
+         console.log(Bignumber.fold);
+         var s: Bignumber = new Bignumber();
+         s.setNumber(99);
+         var t = 100;
+         var w: Bignumber = new Bignumber();;
+         w.setNumber(100);
+         s.addNumber(t);
+         console.log(s.toString());
+         s.setNumber(99);
+         s.subtractNumber(t);
+         console.log(s.toString());
+         s.setNumber(99);
+         s.addBigNumber(w);
+         console.log(s.toString());
+         s.setNumber(99);
+         s.subtractBigNumber(w);
+         console.log(s.toString());
+         s.setNumber(99);*/
     }
 
     /**
