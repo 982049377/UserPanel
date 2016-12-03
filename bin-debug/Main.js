@@ -109,11 +109,11 @@ var Main = (function (_super) {
         qinglongyanyuedao.setinformation("we001", 10, 0, "青龙偃月刀", equipmentQualitySort.Story);
         var atkCrystal = new Crystal();
         atkCrystal.setinformation("atk001", 5, 0, "攻击宝石");
-        var i; //= user.fightPower;
-        //console.log("没英雄战斗力" + i);
+        var i = user.fightPower;
+        console.log("没英雄战斗力" + i);
         user.addHero(guanyu);
         user.inToTeam(guanyu);
-        //i = user.fightPower;
+        i = user.fightPower;
         console.log("关羽上阵战斗力" + i);
         guanyu.addEquipment(qinglongyanyuedao);
         i = user.fightPower;

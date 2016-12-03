@@ -16,12 +16,19 @@ class User {
         return this.heros.filter(hero => hero.isInTeam)
     }
     private _cacheFightPower = 0;
+    public static flag: boolean = false;
     get fightPower() {
-        if (!this._cacheFightPower) {
-            var result = 0;
-            this.heroesInTeam.forEach(hero => result += hero.fightPower);
-            this._cacheFightPower = result;
+        if (this._cacheFightPower && !User.flag) {
+            console.log("User.flag" + User.flag);
+            return this._cacheFightPower;
         }
+        // if (!this._cacheFightPower || User.flag) {
+        var result = 0;
+        this.heroesInTeam.forEach(hero => result += hero.fightPower);
+        this._cacheFightPower = result;
+        console.log("User.flag" + User.flag);
+        User.flag = false;
+        // }
         return this._cacheFightPower;
     }
     constructor() {

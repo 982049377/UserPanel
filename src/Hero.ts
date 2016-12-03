@@ -29,15 +29,19 @@ class Hero {
         this.equipments.forEach(equipment => result += equipment.Atk)
         return result;
     }
-    private _cacheHeroFightPower = 0;
-    //private flag:boolean=false;
+    // private _cacheHeroFightPower = 0;
+    // public static flag: boolean = false;
     get fightPower() {
-        if (!this._cacheHeroFightPower) {
-            var result = this.atk * 1.2 + this.def * 0.8;
-            this.equipments.forEach(equipment => result += equipment.fightPower);
-            this._cacheHeroFightPower = result;
-        }
-        return this._cacheHeroFightPower;
+        // if (this._cacheHeroFightPower && !Hero.flag) {
+        //     console.log("Hero.flag" + Hero.flag);
+        //     return this._cacheHeroFightPower;
+        // }
+        // if (!this._cacheHeroFightPower) {
+        var result = this.atk * 1.2 + this.def * 0.8;
+        this.equipments.forEach(equipment => result += equipment.fightPower);
+        // this._cacheHeroFightPower = result;
+        // }
+        return result;
     }
     constructor() {
         this.id = "";
@@ -56,9 +60,11 @@ class Hero {
     }
     addEquipment(equipment: Equipment) {
         this.equipments.push(equipment);
+        User.flag = true;
     }
     removeEquipment(equipment: Equipment) {
         var index = this.equipments.indexOf(equipment);
         this.equipments.splice(index);
+        User.flag = true;
     }
 }

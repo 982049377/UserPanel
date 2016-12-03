@@ -9,7 +9,6 @@ var Equipment = (function () {
     function Equipment() {
         this.atk = 0;
         this.def = 0;
-        this._cacheEquipmentFightPower = 0;
         this.id = "";
         this.name = "";
         this.crystals = [];
@@ -23,13 +22,15 @@ var Equipment = (function () {
         }
     );
     d(p, "fightPower"
+        // private _cacheEquipmentFightPower = 0;
         ,function () {
-            if (!this._cacheEquipmentFightPower) {
-                var result = this.atk * 1.2 + this.def * 0.8;
-                this.crystals.forEach(function (crystal) { return result += crystal.fightPower; });
-                this._cacheEquipmentFightPower = result;
-            }
-            return this._cacheEquipmentFightPower;
+            // if (!this._cacheEquipmentFightPower) {
+            var result = this.atk * 1.2 + this.def * 0.8;
+            this.crystals.forEach(function (crystal) { return result += crystal.fightPower; });
+            // this._cacheEquipmentFightPower = result;
+            // }
+            // return this._cacheEquipmentFightPower;
+            return result;
         }
     );
     p.setinformation = function (id, atk, def, name, quality) {
@@ -41,10 +42,12 @@ var Equipment = (function () {
     };
     p.addCrystal = function (crystal) {
         this.crystals.push(crystal);
+        User.flag = true;
     };
     p.removeCrystal = function (crystal) {
         var index = this.crystals.indexOf(crystal);
         this.crystals.splice(index);
+        User.flag = true;
     };
     return Equipment;
 }());

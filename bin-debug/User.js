@@ -16,11 +16,17 @@ var User = (function () {
     );
     d(p, "fightPower"
         ,function () {
-            if (!this._cacheFightPower) {
-                var result = 0;
-                this.heroesInTeam.forEach(function (hero) { return result += hero.fightPower; });
-                this._cacheFightPower = result;
+            if (this._cacheFightPower && !User.flag) {
+                console.log("User.flag" + User.flag);
+                return this._cacheFightPower;
             }
+            // if (!this._cacheFightPower || User.flag) {
+            var result = 0;
+            this.heroesInTeam.forEach(function (hero) { return result += hero.fightPower; });
+            this._cacheFightPower = result;
+            console.log("User.flag" + User.flag);
+            User.flag = false;
+            // }
             return this._cacheFightPower;
         }
     );
@@ -54,6 +60,7 @@ var User = (function () {
             }
         }
     };
+    User.flag = false;
     return User;
 }());
 egret.registerClass(User,'User');

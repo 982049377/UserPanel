@@ -1,4 +1,3 @@
-
 class Crystal {
     id: string;
 
@@ -14,14 +13,15 @@ class Crystal {
     get Atk() {
         return this.atk;
     }
-    private _cacheCrystalFightPower = 0;
+    // private _cacheCrystalFightPower = 0;
 
     get fightPower() {
-        if (!this._cacheCrystalFightPower) {
-            var result = this.atk * 1.2 + this.def * 0.8;
-            this._cacheCrystalFightPower=result;
-        }
-        return this._cacheCrystalFightPower;
+        // if (!this._cacheCrystalFightPower) {
+        var result = this.atk * 1.2 + this.def * 0.8;
+        // this._cacheCrystalFightPower=result;
+        // }
+        // return this._cacheCrystalFightPower;
+        return result;
     }
     setinformation(id: string, atk: number, def: number, name: string) {
         this.id = id;

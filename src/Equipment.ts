@@ -23,15 +23,16 @@ class Equipment {
         return result;
     }
 
-    private _cacheEquipmentFightPower = 0;
+    // private _cacheEquipmentFightPower = 0;
 
     get fightPower() {
-        if (!this._cacheEquipmentFightPower) {
-            var result = this.atk * 1.2 + this.def * 0.8;
-            this.crystals.forEach(crystal => result += crystal.fightPower);
-            this._cacheEquipmentFightPower = result;
-        }
-        return this._cacheEquipmentFightPower;
+        // if (!this._cacheEquipmentFightPower) {
+        var result = this.atk * 1.2 + this.def * 0.8;
+        this.crystals.forEach(crystal => result += crystal.fightPower);
+        // this._cacheEquipmentFightPower = result;
+        // }
+        // return this._cacheEquipmentFightPower;
+        return result;
     }
     constructor() {
         this.id = "";
@@ -47,10 +48,12 @@ class Equipment {
     }
     addCrystal(crystal: Crystal) {
         this.crystals.push(crystal);
+        User.flag = true;
     }
     removeCrystal(crystal: Crystal) {
         var index = this.crystals.indexOf(crystal);
         this.crystals.splice(index);
+        User.flag = true;
     }
 }
 
