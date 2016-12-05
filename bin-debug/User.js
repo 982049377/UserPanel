@@ -3,6 +3,7 @@ var User = (function () {
         this.level = 0;
         this.gold = 0;
         this._cacheFightPower = 0;
+        this.flag = false;
         this.id = "";
         this.exp = new Bignumber();
         this.cash = new Bignumber();
@@ -16,16 +17,16 @@ var User = (function () {
     );
     d(p, "fightPower"
         ,function () {
-            if (this._cacheFightPower && !User.flag) {
-                console.log("User.flag" + User.flag);
+            if (this._cacheFightPower && !this.flag) {
+                console.log("User.flag" + this.flag);
                 return this._cacheFightPower;
             }
             // if (!this._cacheFightPower || User.flag) {
             var result = 0;
             this.heroesInTeam.forEach(function (hero) { return result += hero.fightPower; });
             this._cacheFightPower = result;
-            console.log("User.flag" + User.flag);
-            User.flag = false;
+            console.log("User.flag" + this.flag);
+            this.flag = false;
             // }
             return this._cacheFightPower;
         }
@@ -60,7 +61,6 @@ var User = (function () {
             }
         }
     };
-    User.flag = false;
     return User;
 }());
 egret.registerClass(User,'User');

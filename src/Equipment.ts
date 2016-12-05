@@ -46,14 +46,14 @@ class Equipment {
         this.name = name;
         this.quality = quality;
     }
-    addCrystal(crystal: Crystal) {
+    addCrystal(user:User,crystal: Crystal) {
         this.crystals.push(crystal);
-        User.flag = true;
+        user.flag = true;
     }
-    removeCrystal(crystal: Crystal) {
+    removeCrystal(user:User,crystal: Crystal) {
         var index = this.crystals.indexOf(crystal);
         this.crystals.splice(index);
-        User.flag = true;
+        user.flag = true;
     }
 }
 

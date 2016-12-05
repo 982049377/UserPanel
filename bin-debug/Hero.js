@@ -47,14 +47,14 @@ var Hero = (function () {
         this.def = def;
         this.quality = quality;
     };
-    p.addEquipment = function (equipment) {
+    p.addEquipment = function (user, equipment) {
         this.equipments.push(equipment);
-        User.flag = true;
+        user.flag = true;
     };
-    p.removeEquipment = function (equipment) {
+    p.removeEquipment = function (user, equipment) {
         var index = this.equipments.indexOf(equipment);
         this.equipments.splice(index);
-        User.flag = true;
+        user.flag = true;
     };
     return Hero;
 }());

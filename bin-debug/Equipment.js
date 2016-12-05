@@ -40,14 +40,14 @@ var Equipment = (function () {
         this.name = name;
         this.quality = quality;
     };
-    p.addCrystal = function (crystal) {
+    p.addCrystal = function (user, crystal) {
         this.crystals.push(crystal);
-        User.flag = true;
+        user.flag = true;
     };
-    p.removeCrystal = function (crystal) {
+    p.removeCrystal = function (user, crystal) {
         var index = this.crystals.indexOf(crystal);
         this.crystals.splice(index);
-        User.flag = true;
+        user.flag = true;
     };
     return Equipment;
 }());

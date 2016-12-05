@@ -58,13 +58,13 @@ class Hero {
         this.def = def;
         this.quality = quality;
     }
-    addEquipment(equipment: Equipment) {
+    addEquipment(user:User,equipment: Equipment) {
         this.equipments.push(equipment);
-        User.flag = true;
+        user.flag = true;
     }
-    removeEquipment(equipment: Equipment) {
+    removeEquipment(user:User,equipment: Equipment) {
         var index = this.equipments.indexOf(equipment);
         this.equipments.splice(index);
-        User.flag = true;
+        user.flag = true;
     }
 }
