@@ -6,7 +6,9 @@ enum equipmentQualitySort {
 }
 
 class Equipment {
-    id: string;
+    configId: string;
+
+    static identityID: number = 0;
 
     atkItSelf: number = 0;
 
@@ -62,19 +64,21 @@ class Equipment {
     get fightPower() {
         // if (!this._cacheEquipmentFightPower) {
         var result = this.Atk * 1.2 + this.Def * 0.8;
-        this.crystals.forEach(crystal => result += crystal.fightPower);
+        //this.crystals.forEach(crystal => result += crystal.fightPower);
         // this._cacheEquipmentFightPower = result;
         // }
         // return this._cacheEquipmentFightPower;
+        console.log(result);
         return result;
     }
     constructor() {
-        this.id = "";
+        this.configId = "";
         this.name = "";
         this.crystals = [];
+        Equipment.identityID++;
     }
     setinformation(id: string, atk: number, def: number, name: string, quality: equipmentQualitySort) {
-        this.id = id;
+        this.configId = id;
         this.atkItSelf = atk;
         this.defItSelf = def;
         this.name = name;

@@ -16,15 +16,45 @@ var Equipment = (function () {
     var d = __define,c=Equipment,p=c.prototype;
     d(p, "Atk"
         ,function () {
-            var result = this.atkItSelf;
+            var result = 0;
             this.crystals.forEach(function (crystal) { return result += crystal.Atk; });
+            switch (this.quality) {
+                case equipmentQualitySort.Common:
+                    result = result * 0.8;
+                    break;
+                case equipmentQualitySort.Rare:
+                    result = result * 0.9;
+                    break;
+                case equipmentQualitySort.Epic:
+                    result = result * 1.0;
+                    break;
+                case equipmentQualitySort.Story:
+                    result = result * 1.2;
+                    break;
+            }
+            result += this.atkItSelf;
             return result;
         }
     );
     d(p, "Def"
         ,function () {
-            var result = this.defItSelf;
+            var result = 0;
             this.crystals.forEach(function (crystal) { return result += crystal.Def; });
+            switch (this.quality) {
+                case equipmentQualitySort.Common:
+                    result = result * 0.8;
+                    break;
+                case equipmentQualitySort.Rare:
+                    result = result * 0.9;
+                    break;
+                case equipmentQualitySort.Epic:
+                    result = result * 1.0;
+                    break;
+                case equipmentQualitySort.Story:
+                    result = result * 1.2;
+                    break;
+            }
+            result += this.defItSelf;
             return result;
         }
     );
@@ -33,10 +63,11 @@ var Equipment = (function () {
         ,function () {
             // if (!this._cacheEquipmentFightPower) {
             var result = this.Atk * 1.2 + this.Def * 0.8;
-            this.crystals.forEach(function (crystal) { return result += crystal.fightPower; });
+            //this.crystals.forEach(crystal => result += crystal.fightPower);
             // this._cacheEquipmentFightPower = result;
             // }
             // return this._cacheEquipmentFightPower;
+            console.log(result);
             return result;
         }
     );

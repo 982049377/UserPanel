@@ -137,39 +137,50 @@ class Main extends egret.DisplayObjectContainer {
         user.inToTeam(guanyu);
 
         i = user.fightPower;
-        console.log("user1关羽上阵战斗力" + i);
+        console.log("user1关羽上阵战斗力" + i);//182
+        console.log("gunayu" + guanyu.fightPower)
 
         guanyu.addEquipment(user, qinglongyanyuedao);
         i = user.fightPower;
-        console.log("user1关羽装备青龙偃月刀上阵战斗力" + i);
+        console.log("user1关羽装备青龙偃月刀上阵战斗力" + i);//194
+        console.log("gunayu" + guanyu.fightPower)
 
-        qinglongyanyuedao.addCrystal(user, atkCrystal);
+        qinglongyanyuedao.addCrystal(user, 3);
+        console.log("gunayu  addCrystal " + guanyu.fightPower)
+        console.log("刀  addCrystal " + qinglongyanyuedao.fightPower)
         i = user.fightPower;
-        console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗）上阵战斗力" + i);
+        console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗）上阵战斗力" + i);//201.2
+        console.log("gunayu  addCrystal" + guanyu.fightPower)
+        console.log("刀  addCrystal " + qinglongyanyuedao.fightPower)
+
         qinglongyanyuedao.addCrystal(user, defCrystal);
         i = user.fightPower;
-        console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗,防御宝石1颗）上阵战斗力" + i);
+        console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗,防御宝石1颗）上阵战斗力" + i);//206
+        console.log("gunayu" + guanyu.fightPower)
 
         user.addHero(zhangfei);
         user.inToTeam(zhangfei);
         i = user.fightPower;
-        console.log("user1关羽and张飞上阵战斗力" + i);
+        console.log("user1关羽and张飞上阵战斗力" + i);//377.2
+        console.log("gunayu" + guanyu.fightPower)
 
         user.outToTean(zhangfei);
         i = user.fightPower;
         console.log("user1关羽上阵战斗力" + i);
         console.log("user1关羽" + guanyu.Atk);
         console.log("user1关羽" + guanyu.Def);
-        var user2 = new User();
-        user2.setinformation("wang")
-        var guanyu2 = new Hero();
-        guanyu2.setinformation("001", "关羽", 95, 85, heroQualitySort.S);
-        i = user2.fightPower;
-        console.log("user2" + i);
-        user2.addHero(guanyu2);
-        user2.inToTeam(guanyu2);
-        i = user2.fightPower;
-        console.log("user2关羽上阵战斗力" + i);
+
+
+        // var user2 = new User();
+        // user2.setinformation("wang")
+        // var guanyu2 = new Hero();
+        // guanyu2.setinformation("001", "关羽", 95, 85, heroQualitySort.S);
+        // i = user2.fightPower;
+        // console.log("user2" + i);
+        // user2.addHero(guanyu2);
+        // user2.inToTeam(guanyu2);
+        // i = user2.fightPower;
+        // console.log("user2关羽上阵战斗力" + i);
 
 
 

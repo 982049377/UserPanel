@@ -1,5 +1,7 @@
 class Crystal {
-    id: string;
+    configId: string;
+
+    static identityID: number = 0;
 
     atk: number = 0;
 
@@ -7,8 +9,9 @@ class Crystal {
 
     name: string;
     constructor() {
-        this.id = "";
+        this.configId = "";
         this.name = "";
+        Crystal.identityID++;
     }
     get Atk() {
         return this.atk;
@@ -27,7 +30,7 @@ class Crystal {
         return result;
     }
     setinformation(id: string, atk: number, def: number, name: string) {
-        this.id = id;
+        this.configId = id;
         this.atk = atk;
         this.def = def;
         this.name = name;

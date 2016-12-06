@@ -25,7 +25,7 @@ var User = (function () {
             var result = 0;
             this.heroesInTeam.forEach(function (hero) { return result += hero.fightPower; });
             this._cacheFightPower = result;
-            console.log(this.id + "flag" + this.flag);
+            //console.log(this.id+"flag" + this.flag);
             this.flag = false;
             // }
             return this._cacheFightPower;

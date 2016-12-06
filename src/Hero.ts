@@ -1,3 +1,19 @@
+var Cache: MethodDecorator = (target: any, propertyName, desc: PropertyDescriptor) => {
+    const getter = desc.get;
+    desc.get = function () {
+        //console.log(target);//引用时的类
+        //console.log(propertyName)//接下来的函数
+        if (this["fightHeroPowerCache"] != null && !this["flag"]) {
+            return this["fightHeroPowerCache"];
+        } else {
+            this["fightHeroPowerCache"] = getter.apply(this);
+            //return getter.apply(this);
+        }
+        //console.log(this["fightHeroPowerCache"]);
+        return this["fightHeroPowerCache"];
+    }
+    return desc;
+}
 enum heroQualitySort {
     C,//普通
     B,//稀有
@@ -6,7 +22,9 @@ enum heroQualitySort {
 }
 
 class Hero {
-    id: string;
+    configId: string;
+
+    static identityID: number = 0;
 
     exp: Bignumber;
 
@@ -15,6 +33,26 @@ class Hero {
     name: string;
 
     initialAtk: number = 0;
+
+    physique: number = 0;//体质
+    get maxHP() {
+        var maxhp: number;
+        switch (this.quality) {
+            case heroQualitySort.A:
+                maxhp = this.physique * 0.7;
+                break;
+            case heroQualitySort.B:
+                maxhp = this.physique * 0.6;
+                break;
+            case heroQualitySort.C:
+                maxhp = this.physique * 0.5;
+                break;
+            case heroQualitySort.S:
+                maxhp = this.physique * 0.8;
+                break;
+        }
+        return maxhp;
+    }
     get Atk() {
         var atk = 0;
         switch (this.quality) {
@@ -36,7 +74,7 @@ class Hero {
     }
 
     initialDef: number = 0;
-    //@Cache
+
     get Def() {
         var def = 0;
         switch (this.quality) {
@@ -56,8 +94,6 @@ class Hero {
         this.equipments.forEach(equipment => def += equipment.Def);
         return def;
     }
-
-
     quality: heroQualitySort;
 
     equipments: Equipment[];
@@ -69,30 +105,33 @@ class Hero {
     //     this.equipments.forEach(equipment => result += equipment.Atk)
     //     return result;
     // }
-    // private _cacheHeroFightPower = 0;
-    // public static flag: boolean = false;
+    private _cacheHeroFightPower = 0;
+    public flag: boolean = false;
+    @Cache
     get fightPower() {
         // if (this._cacheHeroFightPower && !Hero.flag) {
         //     console.log("Hero.flag" + Hero.flag);
         //     return this._cacheHeroFightPower;
         // }
         // if (!this._cacheHeroFightPower) {
-        var result = this.Atk * 1.2 + this.Def * 0.8;
-        this.equipments.forEach(equipment => result += equipment.fightPower);
+        var result = this.Atk * 1.2 + this.Def * 0.8;//攻击防御已经计算到hero中了
+        //this.equipments.forEach(equipment => result += equipment.fightPower);
         // this._cacheHeroFightPower = result;
         // }
+        //console.log(result);
         return result;
     }
     constructor() {
-        this.id = "";
+        this.configId = "";
         this.name = "";
         this.exp = new Bignumber();
         this.isInTeam = false;
         this.equipments = [];
+        Hero.identityID++;
     }
 
     setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort) {
-        this.id = id;
+        this.configId = id;
         this.name = name;
         this.initialAtk = atk;
         this.initialDef = def;
@@ -101,10 +140,13 @@ class Hero {
     addEquipment(user: User, equipment: Equipment) {
         this.equipments.push(equipment);
         user.flag = true;
+        this.flag = true;
     }
     removeEquipment(user: User, equipment: Equipment) {
         var index = this.equipments.indexOf(equipment);
         this.equipments.splice(index);
         user.flag = true;
+        this.flag = true;
     }
 }
+

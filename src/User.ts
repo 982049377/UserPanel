@@ -27,7 +27,7 @@ class User {
         var result = 0;
         this.heroesInTeam.forEach(hero => result += hero.fightPower);
         this._cacheFightPower = result;
-        console.log(this.id+"flag" + this.flag);
+        //console.log(this.id+"flag" + this.flag);
         this.flag = false;
         // }
         return this._cacheFightPower;
@@ -68,11 +68,4 @@ class User {
             this.flag=true;
         }
     }
-}
-var Cache:MethodDecorator=(target:any,propertyName,desc:PropertyDescriptor)=>{
-    const getter=desc.get;
-    desc.get=function(){
-        return getter.apply(this);
-    }
-    return desc;
 }
