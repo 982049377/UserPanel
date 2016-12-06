@@ -19,14 +19,14 @@ class User {
     public flag: boolean = false;
     get fightPower() {
         if (this._cacheFightPower && !this.flag) {
-            console.log("User.flag" + this.flag);
+            //console.log("User.flag" + this.flag);
             return this._cacheFightPower;
         }
         // if (!this._cacheFightPower || User.flag) {
         var result = 0;
         this.heroesInTeam.forEach(hero => result += hero.fightPower);
         this._cacheFightPower = result;
-        console.log("User.flag" + this.flag);
+        console.log(this.id+"flag" + this.flag);
         this.flag = false;
         // }
         return this._cacheFightPower;
@@ -53,6 +53,7 @@ class User {
             } else {
                 this.heros[i].isInTeam = true;
             }
+            this.flag=true;
         }
     }
     outToTean(hero: Hero) {
@@ -63,6 +64,7 @@ class User {
             } else {
                 hero.isInTeam = false;
             }
+            this.flag=true;
         }
     }
 }
