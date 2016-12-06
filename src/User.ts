@@ -1,3 +1,14 @@
+var Check: MethodDecorator = (target: any, propertyName, desc: PropertyDescriptor) => {
+    console.log(target);
+    console.log(propertyName);
+    console.log(desc);
+    const getter = desc.get;
+ 
+    console.log("desc.get" +  desc.get;
+    console.log("desc.set" + desc.set);
+    return target["inToTeam(hero: Hero)"];
+    //return desc;
+}
 class User {
     id: string;
 
@@ -17,19 +28,12 @@ class User {
     }
     private _cacheFightPower = 0;
     public flag: boolean = false;
-
+    @Cache
     get fightPower() {
-        if (this._cacheFightPower && !this.flag) {
-            //console.log("User.flag" + this.flag);
-            return this._cacheFightPower;
-        }
-        // if (!this._cacheFightPower || User.flag) {
         var result = 0;
         this.heroesInTeam.forEach(hero => result += hero.fightPower);
         this._cacheFightPower = result;
-        //console.log(this.id+"flag" + this.flag);
         this.flag = false;
-        // }
         return this._cacheFightPower;
     }
     constructor() {
@@ -44,8 +48,9 @@ class User {
     addHero(hero: Hero) {
         this.heros.push(hero);
     }
+    @Check
     inToTeam(hero: Hero) {
-        if (this.heros.filter(temphero => temphero.id == hero.id)) {
+        if (this.heros.filter(temphero => (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID))) {
             var i = this.heros.indexOf(hero);
             this.heros[i].isInTeam == true;
             if (this.heros[i].isInTeam == true) {
@@ -54,18 +59,19 @@ class User {
             } else {
                 this.heros[i].isInTeam = true;
             }
-            this.flag=true;
+            this.flag = true;
         }
     }
+    //@Check
     outToTean(hero: Hero) {
-        if (this.heros.filter(temphero => temphero.id == hero.id)) {
+        if (this.heros.filter(temphero => (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID))) {
             if (hero.isInTeam == false) {
                 console.warn(hero.name + "没有上阵");
                 return;
             } else {
                 hero.isInTeam = false;
             }
-            this.flag=true;
+            this.flag = true;
         }
     }
 }

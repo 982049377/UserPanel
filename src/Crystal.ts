@@ -1,7 +1,8 @@
 class Crystal {
     configId: string;
 
-    static identityID: number = 0;
+    static Id = 0;
+    identityID: number = 0;
 
     atk: number = 0;
 
@@ -11,7 +12,8 @@ class Crystal {
     constructor() {
         this.configId = "";
         this.name = "";
-        Crystal.identityID++;
+        Crystal.Id++;
+        this.identityID = Crystal.Id;
     }
     get Atk() {
         return this.atk;

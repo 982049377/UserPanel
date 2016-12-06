@@ -8,7 +8,8 @@ enum equipmentQualitySort {
 class Equipment {
     configId: string;
 
-    static identityID: number = 0;
+    static Id=0;
+    identityID: number = 0;
 
     atkItSelf: number = 0;
 
@@ -75,7 +76,8 @@ class Equipment {
         this.configId = "";
         this.name = "";
         this.crystals = [];
-        Equipment.identityID++;
+        Equipment.Id++;
+        this.identityID=Equipment.Id;
     }
     setinformation(id: string, atk: number, def: number, name: string, quality: equipmentQualitySort) {
         this.configId = id;

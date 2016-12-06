@@ -1,3 +1,19 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var Check = function (target, propertyName, desc) {
+    console.log(target);
+    console.log(propertyName);
+    console.log(desc);
+    var getter = desc.get;
+    console.log("desc.get" + desc.get.apply);
+    console.log("desc.set" + desc.set);
+    return target["inToTeam(hero: Hero)"];
+    //return desc;
+};
 var User = (function () {
     function User() {
         this.level = 0;
@@ -17,17 +33,10 @@ var User = (function () {
     );
     d(p, "fightPower"
         ,function () {
-            if (this._cacheFightPower && !this.flag) {
-                //console.log("User.flag" + this.flag);
-                return this._cacheFightPower;
-            }
-            // if (!this._cacheFightPower || User.flag) {
             var result = 0;
             this.heroesInTeam.forEach(function (hero) { return result += hero.fightPower; });
             this._cacheFightPower = result;
-            //console.log(this.id+"flag" + this.flag);
             this.flag = false;
-            // }
             return this._cacheFightPower;
         }
     );
@@ -38,7 +47,7 @@ var User = (function () {
         this.heros.push(hero);
     };
     p.inToTeam = function (hero) {
-        if (this.heros.filter(function (temphero) { return temphero.id == hero.id; })) {
+        if (this.heros.filter(function (temphero) { return (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID); })) {
             var i = this.heros.indexOf(hero);
             this.heros[i].isInTeam == true;
             if (this.heros[i].isInTeam == true) {
@@ -51,8 +60,9 @@ var User = (function () {
             this.flag = true;
         }
     };
+    //@Check
     p.outToTean = function (hero) {
-        if (this.heros.filter(function (temphero) { return temphero.id == hero.id; })) {
+        if (this.heros.filter(function (temphero) { return (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID); })) {
             if (hero.isInTeam == false) {
                 console.warn(hero.name + "没有上阵");
                 return;
@@ -63,6 +73,12 @@ var User = (function () {
             this.flag = true;
         }
     };
+    __decorate([
+        Cache
+    ], p, "fightPower", null);
+    __decorate([
+        Check
+    ], p, "inToTeam", null);
     return User;
 }());
 egret.registerClass(User,'User');

@@ -9,6 +9,7 @@ var Cache = function (target, propertyName, desc) {
     desc.get = function () {
         //console.log(target);//引用时的类
         //console.log(propertyName)//接下来的函数
+        //console.log(this);
         if (this["fightHeroPowerCache"] != null && !this["flag"]) {
             return this["fightHeroPowerCache"];
         }
@@ -29,6 +30,7 @@ var heroQualitySort;
 })(heroQualitySort || (heroQualitySort = {}));
 var Hero = (function () {
     function Hero() {
+        this.identityID = 0;
         this.level = 0;
         this.initialAtk = 0;
         this.physique = 0; //体质
@@ -40,11 +42,13 @@ var Hero = (function () {
         // }
         this._cacheHeroFightPower = 0;
         this.flag = false;
-        this.id = "";
+        this.configId = "";
         this.name = "";
         this.exp = new Bignumber();
         this.isInTeam = false;
         this.equipments = [];
+        Hero.Id++;
+        this.identityID = Hero.Id;
     }
     var d = __define,c=Hero,p=c.prototype;
     d(p, "maxHP"
@@ -125,7 +129,7 @@ var Hero = (function () {
         }
     );
     p.setinformation = function (id, name, atk, def, quality) {
-        this.id = id;
+        this.configId = id;
         this.name = name;
         this.initialAtk = atk;
         this.initialDef = def;
@@ -142,6 +146,7 @@ var Hero = (function () {
         user.flag = true;
         this.flag = true;
     };
+    Hero.Id = 0;
     __decorate([
         Cache
     ], p, "fightPower", null);

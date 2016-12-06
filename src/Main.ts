@@ -145,7 +145,7 @@ class Main extends egret.DisplayObjectContainer {
         console.log("user1关羽装备青龙偃月刀上阵战斗力" + i);//194
         console.log("gunayu" + guanyu.fightPower)
 
-        qinglongyanyuedao.addCrystal(user, 3);
+        qinglongyanyuedao.addCrystal(user, atkCrystal);
         console.log("gunayu  addCrystal " + guanyu.fightPower)
         console.log("刀  addCrystal " + qinglongyanyuedao.fightPower)
         i = user.fightPower;

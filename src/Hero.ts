@@ -3,6 +3,7 @@ var Cache: MethodDecorator = (target: any, propertyName, desc: PropertyDescripto
     desc.get = function () {
         //console.log(target);//引用时的类
         //console.log(propertyName)//接下来的函数
+        //console.log(this);
         if (this["fightHeroPowerCache"] != null && !this["flag"]) {
             return this["fightHeroPowerCache"];
         } else {
@@ -24,7 +25,8 @@ enum heroQualitySort {
 class Hero {
     configId: string;
 
-    static identityID: number = 0;
+    static Id=0;
+    identityID: number = 0;
 
     exp: Bignumber;
 
@@ -127,7 +129,8 @@ class Hero {
         this.exp = new Bignumber();
         this.isInTeam = false;
         this.equipments = [];
-        Hero.identityID++;
+        Hero.Id++;
+        this.identityID=Hero.Id;
     }
 
     setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort) {

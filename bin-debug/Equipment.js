@@ -7,11 +7,14 @@ var equipmentQualitySort;
 })(equipmentQualitySort || (equipmentQualitySort = {}));
 var Equipment = (function () {
     function Equipment() {
+        this.identityID = 0;
         this.atkItSelf = 0;
         this.defItSelf = 0;
-        this.id = "";
+        this.configId = "";
         this.name = "";
         this.crystals = [];
+        Equipment.Id++;
+        this.identityID = Equipment.Id;
     }
     var d = __define,c=Equipment,p=c.prototype;
     d(p, "Atk"
@@ -72,7 +75,7 @@ var Equipment = (function () {
         }
     );
     p.setinformation = function (id, atk, def, name, quality) {
-        this.id = id;
+        this.configId = id;
         this.atkItSelf = atk;
         this.defItSelf = def;
         this.name = name;
@@ -87,6 +90,7 @@ var Equipment = (function () {
         this.crystals.splice(index);
         user.flag = true;
     };
+    Equipment.Id = 0;
     return Equipment;
 }());
 egret.registerClass(Equipment,'Equipment');
