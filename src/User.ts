@@ -17,6 +17,7 @@ class User {
     }
     private _cacheFightPower = 0;
     public flag: boolean = false;
+
     get fightPower() {
         if (this._cacheFightPower && !this.flag) {
             //console.log("User.flag" + this.flag);
@@ -67,4 +68,11 @@ class User {
             this.flag=true;
         }
     }
+}
+var Cache:MethodDecorator=(target:any,propertyName,desc:PropertyDescriptor)=>{
+    const getter=desc.get;
+    desc.get=function(){
+        return getter.apply(this);
+    }
+    return desc;
 }

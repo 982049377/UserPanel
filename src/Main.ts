@@ -127,6 +127,8 @@ class Main extends egret.DisplayObjectContainer {
         qinglongyanyuedao.setinformation("we001", 10, 0, "青龙偃月刀", equipmentQualitySort.Story);
         var atkCrystal = new Crystal();
         atkCrystal.setinformation("atk001", 5, 0, "攻击宝石")
+        var defCrystal = new Crystal();
+        defCrystal.setinformation("def001", 0, 5, "防御宝石")
 
         var i = user.fightPower;
         console.log("user1没英雄战斗力" + i);
@@ -144,6 +146,9 @@ class Main extends egret.DisplayObjectContainer {
         qinglongyanyuedao.addCrystal(user, atkCrystal);
         i = user.fightPower;
         console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗）上阵战斗力" + i);
+        qinglongyanyuedao.addCrystal(user, defCrystal);
+        i = user.fightPower;
+        console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗,防御宝石1颗）上阵战斗力" + i);
 
         user.addHero(zhangfei);
         user.inToTeam(zhangfei);
@@ -153,7 +158,8 @@ class Main extends egret.DisplayObjectContainer {
         user.outToTean(zhangfei);
         i = user.fightPower;
         console.log("user1关羽上阵战斗力" + i);
-
+        console.log("user1关羽" + guanyu.Atk);
+        console.log("user1关羽" + guanyu.Def);
         var user2 = new User();
         user2.setinformation("wang")
         var guanyu2 = new Hero();

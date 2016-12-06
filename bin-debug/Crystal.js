@@ -11,6 +11,11 @@ var Crystal = (function () {
             return this.atk;
         }
     );
+    d(p, "Def"
+        ,function () {
+            return this.def;
+        }
+    );
     d(p, "fightPower"
         // private _cacheCrystalFightPower = 0;
         ,function () {

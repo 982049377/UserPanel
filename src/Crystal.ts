@@ -13,6 +13,9 @@ class Crystal {
     get Atk() {
         return this.atk;
     }
+    get Def() {
+        return this.def;
+    }
     // private _cacheCrystalFightPower = 0;
 
     get fightPower() {

@@ -7,8 +7,8 @@ var equipmentQualitySort;
 })(equipmentQualitySort || (equipmentQualitySort = {}));
 var Equipment = (function () {
     function Equipment() {
-        this.atk = 0;
-        this.def = 0;
+        this.atkItSelf = 0;
+        this.defItSelf = 0;
         this.id = "";
         this.name = "";
         this.crystals = [];
@@ -16,8 +16,15 @@ var Equipment = (function () {
     var d = __define,c=Equipment,p=c.prototype;
     d(p, "Atk"
         ,function () {
-            var result = 0;
+            var result = this.atkItSelf;
             this.crystals.forEach(function (crystal) { return result += crystal.Atk; });
+            return result;
+        }
+    );
+    d(p, "Def"
+        ,function () {
+            var result = this.defItSelf;
+            this.crystals.forEach(function (crystal) { return result += crystal.Def; });
             return result;
         }
     );
@@ -25,7 +32,7 @@ var Equipment = (function () {
         // private _cacheEquipmentFightPower = 0;
         ,function () {
             // if (!this._cacheEquipmentFightPower) {
-            var result = this.atk * 1.2 + this.def * 0.8;
+            var result = this.Atk * 1.2 + this.Def * 0.8;
             this.crystals.forEach(function (crystal) { return result += crystal.fightPower; });
             // this._cacheEquipmentFightPower = result;
             // }
@@ -35,8 +42,8 @@ var Equipment = (function () {
     );
     p.setinformation = function (id, atk, def, name, quality) {
         this.id = id;
-        this.atk = atk;
-        this.def = def;
+        this.atkItSelf = atk;
+        this.defItSelf = def;
         this.name = name;
         this.quality = quality;
     };

@@ -14,9 +14,49 @@ class Hero {
 
     name: string;
 
-    atk: number = 0;
+    initialAtk: number = 0;
+    get Atk() {
+        var atk = 0;
+        switch (this.quality) {
+            case heroQualitySort.A:
+                atk = this.initialAtk + this.level * 0.7;
+                break;
+            case heroQualitySort.B:
+                atk = this.initialAtk + this.level * 0.6;
+                break;
+            case heroQualitySort.C:
+                atk = this.initialAtk + this.level * 0.5;
+                break;
+            case heroQualitySort.S:
+                atk = this.initialAtk + this.level * 0.8;
+                break;
+        }
+        this.equipments.forEach(equipment => atk += equipment.Atk);
+        return atk;
+    }
 
-    def: number = 0;
+    initialDef: number = 0;
+    //@Cache
+    get Def() {
+        var def = 0;
+        switch (this.quality) {
+            case heroQualitySort.A:
+                def = this.initialDef + this.level * 0.7;
+                break;
+            case heroQualitySort.B:
+                def = this.initialDef + this.level * 0.6;
+                break;
+            case heroQualitySort.C:
+                def = this.initialDef + this.level * 0.5;
+                break;
+            case heroQualitySort.S:
+                def = this.initialDef + this.level * 0.8;
+                break;
+        }
+        this.equipments.forEach(equipment => def += equipment.Def);
+        return def;
+    }
+
 
     quality: heroQualitySort;
 
@@ -24,11 +64,11 @@ class Hero {
 
     isInTeam: boolean;
 
-    get Atk() {
-        var result = 0;
-        this.equipments.forEach(equipment => result += equipment.Atk)
-        return result;
-    }
+    // get Atk() {
+    //     var result = 0;
+    //     this.equipments.forEach(equipment => result += equipment.Atk)
+    //     return result;
+    // }
     // private _cacheHeroFightPower = 0;
     // public static flag: boolean = false;
     get fightPower() {
@@ -37,7 +77,7 @@ class Hero {
         //     return this._cacheHeroFightPower;
         // }
         // if (!this._cacheHeroFightPower) {
-        var result = this.atk * 1.2 + this.def * 0.8;
+        var result = this.Atk * 1.2 + this.Def * 0.8;
         this.equipments.forEach(equipment => result += equipment.fightPower);
         // this._cacheHeroFightPower = result;
         // }
@@ -54,15 +94,15 @@ class Hero {
     setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort) {
         this.id = id;
         this.name = name;
-        this.atk = atk;
-        this.def = def;
+        this.initialAtk = atk;
+        this.initialDef = def;
         this.quality = quality;
     }
-    addEquipment(user:User,equipment: Equipment) {
+    addEquipment(user: User, equipment: Equipment) {
         this.equipments.push(equipment);
         user.flag = true;
     }
-    removeEquipment(user:User,equipment: Equipment) {
+    removeEquipment(user: User, equipment: Equipment) {
         var index = this.equipments.indexOf(equipment);
         this.equipments.splice(index);
         user.flag = true;
