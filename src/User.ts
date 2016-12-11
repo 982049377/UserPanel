@@ -2,11 +2,12 @@ var Check: MethodDecorator = (target: any, propertyName, desc: PropertyDescripto
     console.log(target);
     console.log(propertyName);
     console.log(desc);
-    const getter = desc.get;
- 
-    console.log("desc.get" +  desc.get;
+    const getter = desc.value;
+
+    console.log("desc.get" + desc.get);
     console.log("desc.set" + desc.set);
-    return target["inToTeam(hero: Hero)"];
+    return getter.apply(this);
+    //return target["inToTeam(hero: Hero)"];
     //return desc;
 }
 class User {
@@ -48,9 +49,9 @@ class User {
     addHero(hero: Hero) {
         this.heros.push(hero);
     }
-    @Check
+    //@Check
     inToTeam(hero: Hero) {
-        if (this.heros.filter(temphero => (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID))) {
+        if (this.checkHero(hero)) {
             var i = this.heros.indexOf(hero);
             this.heros[i].isInTeam == true;
             if (this.heros[i].isInTeam == true) {
@@ -63,8 +64,14 @@ class User {
         }
     }
     //@Check
-    outToTean(hero: Hero) {
+    checkHero(hero: Hero) {
         if (this.heros.filter(temphero => (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID))) {
+            return true;
+        }
+        return false;
+    }
+    outToTean(hero: Hero) {
+        if (this.checkHero(hero)) {
             if (hero.isInTeam == false) {
                 console.warn(hero.name + "没有上阵");
                 return;
@@ -74,4 +81,5 @@ class User {
             this.flag = true;
         }
     }
+
 }

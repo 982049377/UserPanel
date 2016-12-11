@@ -4,14 +4,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var _this = this;
 var Check = function (target, propertyName, desc) {
     console.log(target);
     console.log(propertyName);
     console.log(desc);
-    var getter = desc.get;
-    console.log("desc.get" + desc.get.apply);
+    var getter = desc.value;
+    console.log("desc.get" + desc.get);
     console.log("desc.set" + desc.set);
-    return target["inToTeam(hero: Hero)"];
+    return getter.apply(_this);
+    //return target["inToTeam(hero: Hero)"];
     //return desc;
 };
 var User = (function () {
@@ -46,8 +48,9 @@ var User = (function () {
     p.addHero = function (hero) {
         this.heros.push(hero);
     };
+    //@Check
     p.inToTeam = function (hero) {
-        if (this.heros.filter(function (temphero) { return (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID); })) {
+        if (this.checkHero(hero)) {
             var i = this.heros.indexOf(hero);
             this.heros[i].isInTeam == true;
             if (this.heros[i].isInTeam == true) {
@@ -61,8 +64,14 @@ var User = (function () {
         }
     };
     //@Check
-    p.outToTean = function (hero) {
+    p.checkHero = function (hero) {
         if (this.heros.filter(function (temphero) { return (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID); })) {
+            return true;
+        }
+        return false;
+    };
+    p.outToTean = function (hero) {
+        if (this.checkHero(hero)) {
             if (hero.isInTeam == false) {
                 console.warn(hero.name + "没有上阵");
                 return;
@@ -76,9 +85,6 @@ var User = (function () {
     __decorate([
         Cache
     ], p, "fightPower", null);
-    __decorate([
-        Check
-    ], p, "inToTeam", null);
     return User;
 }());
 egret.registerClass(User,'User');

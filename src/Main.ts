@@ -156,19 +156,19 @@ class Main extends egret.DisplayObjectContainer {
         qinglongyanyuedao.addCrystal(user, defCrystal);
         i = user.fightPower;
         console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗,防御宝石1颗）上阵战斗力" + i);//206
-        console.log("gunayu" + guanyu.fightPower)
+        console.log("gunayu战斗力" + guanyu.fightPower)
 
         user.addHero(zhangfei);
         user.inToTeam(zhangfei);
         i = user.fightPower;
         console.log("user1关羽and张飞上阵战斗力" + i);//377.2
-        console.log("gunayu" + guanyu.fightPower)
+        console.log("gunayu战斗力" + guanyu.fightPower)
 
         user.outToTean(zhangfei);
         i = user.fightPower;
         console.log("user1关羽上阵战斗力" + i);
-        console.log("user1关羽" + guanyu.Atk);
-        console.log("user1关羽" + guanyu.Def);
+        console.log("user1关羽atk" + guanyu.Atk);
+        console.log("user1关羽def" + guanyu.Def);
 
 
         // var user2 = new User();
