@@ -22,10 +22,10 @@ enum heroQualitySort {
     S//传说
 }
 
-class Hero {
+class Hero extends egret.DisplayObjectContainer {
     configId: string;
 
-    static Id=0;
+    static Id = 0;
     identityID: number = 0;
 
     exp: Bignumber;
@@ -37,6 +37,9 @@ class Hero {
     initialAtk: number = 0;
 
     physique: number = 0;//体质
+
+    _bitmap: egret.Bitmap;
+
     get maxHP() {
         var maxhp: number;
         switch (this.quality) {
@@ -74,6 +77,9 @@ class Hero {
         this.equipments.forEach(equipment => atk += equipment.Atk);
         return atk;
     }
+    get atkDiscript() {
+        return "ATK:   ";
+    }
 
     initialDef: number = 0;
 
@@ -96,8 +102,12 @@ class Hero {
         this.equipments.forEach(equipment => def += equipment.Def);
         return def;
     }
+    get defDiscript() {
+        return "DEF:   ";
+    }
     quality: heroQualitySort;
-
+    static equipmentLimit = 5;
+    equipmentCurrent = 0;
     equipments: Equipment[];
 
     isInTeam: boolean;
@@ -124,32 +134,59 @@ class Hero {
         return result;
     }
     constructor() {
+        super();
         this.configId = "";
         this.name = "";
         this.exp = new Bignumber();
         this.isInTeam = false;
         this.equipments = [];
         Hero.Id++;
-        this.identityID=Hero.Id;
+        this.identityID = Hero.Id;
+        this._bitmap = new egret.Bitmap();
+        this._bitmap.scaleX = 1.5;
+        this._bitmap.scaleY = 1.5;
+        this._bitmap.x = 0;
+        this._bitmap.y = 0;
+        this.addChild(this._bitmap);
     }
 
-    setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort) {
+    setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort, texture: egret.Texture) {
         this.configId = id;
         this.name = name;
         this.initialAtk = atk;
         this.initialDef = def;
         this.quality = quality;
+        this._bitmap.texture = texture;
+        tool.anch(this._bitmap);
+        this._bitmap.touchEnabled = true;
+        var heroBar = new heroStatusBar();
+        this._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            heroBar.setInformation(this);
+            this.addChild(heroBar);
+            //this.swapChildren(heroBar,this._bitmap);
+        }, this);
     }
     addEquipment(user: User, equipment: Equipment) {
-        this.equipments.push(equipment);
-        user.flag = true;
-        this.flag = true;
+        if (this.equipmentCurrent < Hero.equipmentLimit) {
+            this.equipments.push(equipment);
+            user.flag = true;
+            this.flag = true;
+            this.equipmentCurrent++;
+        } else {
+            console.error("装备超过上限");
+        }
+
     }
     removeEquipment(user: User, equipment: Equipment) {
-        var index = this.equipments.indexOf(equipment);
-        this.equipments.splice(index);
-        user.flag = true;
-        this.flag = true;
+        if (this.equipmentCurrent <= 0)
+            console.error("没有装备可以卸载");
+        else {
+            var index = this.equipments.indexOf(equipment);
+            this.equipments.splice(index);
+            user.flag = true;
+            this.flag = true;
+        }
     }
+   
 }
 

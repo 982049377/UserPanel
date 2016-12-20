@@ -5,10 +5,10 @@ enum equipmentQualitySort {
     Story//传说
 }
 
-class Equipment {
+class Equipment extends egret.DisplayObjectContainer {
     configId: string;
 
-    static Id=0;
+    static Id = 0;
     identityID: number = 0;
 
     atkItSelf: number = 0;
@@ -20,6 +20,8 @@ class Equipment {
     quality: equipmentQualitySort;
 
     crystals: Crystal[];
+
+    _bitmap: egret.Bitmap;
     get Atk() {
         var result = 0;
         this.crystals.forEach(crystal => result += crystal.Atk)
@@ -73,18 +75,22 @@ class Equipment {
         return result;
     }
     constructor() {
+        super();
         this.configId = "";
         this.name = "";
         this.crystals = [];
         Equipment.Id++;
-        this.identityID=Equipment.Id;
+        this.identityID = Equipment.Id;
+        this._bitmap = new egret.Bitmap();
     }
-    setinformation(id: string, atk: number, def: number, name: string, quality: equipmentQualitySort) {
+    setinformation(id: string, atk: number, def: number, name: string, quality: equipmentQualitySort, texture: egret.Texture) {
         this.configId = id;
         this.atkItSelf = atk;
         this.defItSelf = def;
         this.name = name;
         this.quality = quality;
+        this._bitmap.texture = texture;
+        tool.anch(this._bitmap);
     }
     addCrystal(user: User, crystal: Crystal) {
         this.crystals.push(crystal);

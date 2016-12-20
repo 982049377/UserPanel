@@ -5,8 +5,10 @@ var equipmentQualitySort;
     equipmentQualitySort[equipmentQualitySort["Epic"] = 2] = "Epic";
     equipmentQualitySort[equipmentQualitySort["Story"] = 3] = "Story"; //传说
 })(equipmentQualitySort || (equipmentQualitySort = {}));
-var Equipment = (function () {
+var Equipment = (function (_super) {
+    __extends(Equipment, _super);
     function Equipment() {
+        _super.call(this);
         this.identityID = 0;
         this.atkItSelf = 0;
         this.defItSelf = 0;
@@ -15,6 +17,7 @@ var Equipment = (function () {
         this.crystals = [];
         Equipment.Id++;
         this.identityID = Equipment.Id;
+        this._bitmap = new egret.Bitmap();
     }
     var d = __define,c=Equipment,p=c.prototype;
     d(p, "Atk"
@@ -74,12 +77,14 @@ var Equipment = (function () {
             return result;
         }
     );
-    p.setinformation = function (id, atk, def, name, quality) {
+    p.setinformation = function (id, atk, def, name, quality, texture) {
         this.configId = id;
         this.atkItSelf = atk;
         this.defItSelf = def;
         this.name = name;
         this.quality = quality;
+        this._bitmap.texture = texture;
+        tool.anch(this._bitmap);
     };
     p.addCrystal = function (user, crystal) {
         this.crystals.push(crystal);
@@ -92,6 +97,6 @@ var Equipment = (function () {
     };
     Equipment.Id = 0;
     return Equipment;
-}());
+}(egret.DisplayObjectContainer));
 egret.registerClass(Equipment,'Equipment');
 //# sourceMappingURL=Equipment.js.map

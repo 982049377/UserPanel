@@ -12,9 +12,11 @@ var game_file_list = [
 	"bin-debug/Crystal.js",
 	"bin-debug/Equipment.js",
 	"bin-debug/Hero.js",
+	"bin-debug/heroStatusBar.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/User.js",
+	"bin-debug/tool.js",
 	//----auto game_file_list end----
 ];
 

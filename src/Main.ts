@@ -117,18 +117,29 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene(): void {
+
         var user = new User();
         user.setinformation("982049377")
         var guanyu = new Hero();
-        guanyu.setinformation("001", "关羽", 95, 85, heroQualitySort.S);
+        var bitmap = this.createBitmapByName("001_png");
+        guanyu.setinformation("001", "关羽", 95, 85, heroQualitySort.S, bitmap.texture);
         var zhangfei = new Hero();
-        zhangfei.setinformation("002", "张飞", 96, 70, heroQualitySort.S);
+        bitmap = this.createBitmapByName("002_png");
+        zhangfei.setinformation("002", "张飞", 96, 70, heroQualitySort.S, bitmap.texture);
         var qinglongyanyuedao = new Equipment();
-        qinglongyanyuedao.setinformation("we001", 10, 0, "青龙偃月刀", equipmentQualitySort.Story);
+        bitmap = this.createBitmapByName("weapan001_png");
+        qinglongyanyuedao.setinformation("we001", 10, 0, "青龙偃月刀", equipmentQualitySort.Story,bitmap.texture);
         var atkCrystal = new Crystal();
         atkCrystal.setinformation("atk001", 5, 0, "攻击宝石")
         var defCrystal = new Crystal();
         defCrystal.setinformation("def001", 0, 5, "防御宝石")
+
+        guanyu.x = 100;
+        guanyu.y = 100;
+        zhangfei.x = 100;
+        zhangfei.y = 600;
+        this.addChild(guanyu);
+        this.addChild(zhangfei)
 
         var i = user.fightPower;
         console.log("user1没英雄战斗力" + i);
@@ -218,6 +229,7 @@ class Main extends egret.DisplayObjectContainer {
         result.texture = texture;
         return result;
     }
+    
 }
 
 

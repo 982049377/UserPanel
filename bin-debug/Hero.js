@@ -28,13 +28,16 @@ var heroQualitySort;
     heroQualitySort[heroQualitySort["A"] = 2] = "A";
     heroQualitySort[heroQualitySort["S"] = 3] = "S"; //传说
 })(heroQualitySort || (heroQualitySort = {}));
-var Hero = (function () {
+var Hero = (function (_super) {
+    __extends(Hero, _super);
     function Hero() {
+        _super.call(this);
         this.identityID = 0;
         this.level = 0;
         this.initialAtk = 0;
         this.physique = 0; //体质
         this.initialDef = 0;
+        this.equipmentCurrent = 0;
         // get Atk() {
         //     var result = 0;
         //     this.equipments.forEach(equipment => result += equipment.Atk)
@@ -49,6 +52,12 @@ var Hero = (function () {
         this.equipments = [];
         Hero.Id++;
         this.identityID = Hero.Id;
+        this._bitmap = new egret.Bitmap();
+        this._bitmap.scaleX = 1.5;
+        this._bitmap.scaleY = 1.5;
+        this._bitmap.x = 0;
+        this._bitmap.y = 0;
+        this.addChild(this._bitmap);
     }
     var d = __define,c=Hero,p=c.prototype;
     d(p, "maxHP"
@@ -92,6 +101,11 @@ var Hero = (function () {
             return atk;
         }
     );
+    d(p, "atkDiscript"
+        ,function () {
+            return "ATK:   ";
+        }
+    );
     d(p, "Def"
         ,function () {
             var def = 0;
@@ -113,6 +127,11 @@ var Hero = (function () {
             return def;
         }
     );
+    d(p, "defDiscript"
+        ,function () {
+            return "DEF:   ";
+        }
+    );
     d(p, "fightPower"
         ,function () {
             // if (this._cacheHeroFightPower && !Hero.flag) {
@@ -128,29 +147,50 @@ var Hero = (function () {
             return result;
         }
     );
-    p.setinformation = function (id, name, atk, def, quality) {
+    p.setinformation = function (id, name, atk, def, quality, texture) {
+        var _this = this;
         this.configId = id;
         this.name = name;
         this.initialAtk = atk;
         this.initialDef = def;
         this.quality = quality;
+        this._bitmap.texture = texture;
+        tool.anch(this._bitmap);
+        this._bitmap.touchEnabled = true;
+        var heroBar = new heroStatusBar();
+        this._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            heroBar.setInformation(_this);
+            _this.addChild(heroBar);
+            //this.swapChildren(heroBar,this._bitmap);
+        }, this);
     };
     p.addEquipment = function (user, equipment) {
-        this.equipments.push(equipment);
-        user.flag = true;
-        this.flag = true;
+        if (this.equipmentCurrent < Hero.equipmentLimit) {
+            this.equipments.push(equipment);
+            user.flag = true;
+            this.flag = true;
+            this.equipmentCurrent++;
+        }
+        else {
+            console.error("装备超过上限");
+        }
     };
     p.removeEquipment = function (user, equipment) {
-        var index = this.equipments.indexOf(equipment);
-        this.equipments.splice(index);
-        user.flag = true;
-        this.flag = true;
+        if (this.equipmentCurrent <= 0)
+            console.error("没有装备可以卸载");
+        else {
+            var index = this.equipments.indexOf(equipment);
+            this.equipments.splice(index);
+            user.flag = true;
+            this.flag = true;
+        }
     };
     Hero.Id = 0;
+    Hero.equipmentLimit = 5;
     __decorate([
         Cache
     ], p, "fightPower", null);
     return Hero;
-}());
+}(egret.DisplayObjectContainer));
 egret.registerClass(Hero,'Hero');
 //# sourceMappingURL=Hero.js.map
