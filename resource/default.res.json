@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,001_png,002_png,weapan001_png,bg_png,Border_png,atk001_png,def001_png",
+			"keys": "bg_jpg,egret_icon_png,description_json,001_png,002_png,weapan001_png,bg_png,Border_png,atk001_png,def001_png,detailbg_png",
 			"name": "preload"
 		}
 	],
@@ -55,6 +55,11 @@
 			"name": "def001_png",
 			"type": "image",
 			"url": "assets/def001.png"
+		},
+		{
+			"name": "detailbg_png",
+			"type": "image",
+			"url": "assets/detailbg.png"
 		}
 	]
 }

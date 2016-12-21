@@ -10,6 +10,7 @@ var game_file_list = [
 	"libs/modules/tween/tween.js",
 	"bin-debug/Bignumber.js",
 	"bin-debug/Crystal.js",
+	"bin-debug/Details.js",
 	"bin-debug/Equipment.js",
 	"bin-debug/Hero.js",
 	"bin-debug/heroStatusBar.js",

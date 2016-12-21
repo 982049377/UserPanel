@@ -61,7 +61,7 @@ class Equipment extends egret.DisplayObjectContainer {
         // this._cacheEquipmentFightPower = result;
         // }
         // return this._cacheEquipmentFightPower;
-        console.log(result);
+        //console.log(result);
         return result;
     }
     tempid=0;

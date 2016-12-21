@@ -70,7 +70,7 @@ class heroStatusBar extends egret.DisplayObjectContainer {
         this.propertyField.addChild(def);
 
         var FightPower = new egret.TextField();
-        FightPower.text = "FighrPower:   "+hero.fightPower.toString();
+        FightPower.text = "FighrPower:   " + hero.fightPower.toString();
         FightPower.textColor = 0X000000;
         FightPower.y = 100;
         FightPower.scaleX = 0.7;
@@ -109,7 +109,7 @@ class heroStatusBar extends egret.DisplayObjectContainer {
         this.barname.text = hero.name;
 
         for (var i = 0; i < hero.equipmentCurrent; i++) {
-            this.grids[i].call(hero.equipments[i].properties._bitmap);
+            this.grids[i].call(hero.equipments[i]);
         }
         this.initPropertyField(hero);
     }
@@ -119,24 +119,34 @@ class heroStatusBar extends egret.DisplayObjectContainer {
 class Grid extends egret.DisplayObjectContainer {
     border: egret.Bitmap;
 
-    content: egret.Bitmap;
+    contentBitmap: egret.Bitmap;
 
+    content: any;
     constructor() {
         super();
         this.border = new egret.Bitmap();
         this.addChild(this.border);
-        this.content = new egret.Bitmap();
-        this.addChild(this.content);
+        this.contentBitmap = new egret.Bitmap();
+        this.addChild(this.contentBitmap);
         this.border.texture = RES.getRes("Border_png");
         tool.anch(this.border);
     }
-    call(bitmap: egret.Bitmap) {
-        this.content.texture = bitmap.texture;
-        tool.anch(this.content);
-        var scale = this.border.texture.textureWidth / this.content.texture.textureWidth;
-        this.content.scaleX = scale;
-        this.content.scaleY = scale;
+    call(content: any) {
+        this.content = content;
+        this.contentBitmap.texture = content.properties._bitmap.texture;
+        tool.anch(this.contentBitmap);
+        var scale = this.border.texture.textureWidth / this.contentBitmap.texture.textureWidth;
+        this.contentBitmap.scaleX = scale;
+        this.contentBitmap.scaleY = scale;
         //console.log(scale);
+        var details = new Details();
+        this.contentBitmap.touchEnabled = true;
+        this.contentBitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+            details.setInformation(this.content);
+            this.addChild(details);
+            //this.swapChildren(details,content.parent)
+            //console.log("123456789123446587");
+        }, this);
     }
 
 }
