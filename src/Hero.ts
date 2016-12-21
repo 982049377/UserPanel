@@ -23,22 +23,11 @@ enum heroQualitySort {
 }
 
 class Hero extends egret.DisplayObjectContainer {
-    configId: string;
-
     static Id = 0;
-    identityID: number = 0;
-
     exp: Bignumber;
-
     level: number = 0;
-
-    name: string;
-
-    initialAtk: number = 0;
-
     physique: number = 0;//体质
-
-    _bitmap: egret.Bitmap;
+    properties: Property;
 
     get maxHP() {
         var maxhp: number;
@@ -62,48 +51,39 @@ class Hero extends egret.DisplayObjectContainer {
         var atk = 0;
         switch (this.quality) {
             case heroQualitySort.A:
-                atk = this.initialAtk + this.level * 0.7;
+                atk = this.properties.initialAtk + this.level * 0.7;
                 break;
             case heroQualitySort.B:
-                atk = this.initialAtk + this.level * 0.6;
+                atk = this.properties.initialAtk + this.level * 0.6;
                 break;
             case heroQualitySort.C:
-                atk = this.initialAtk + this.level * 0.5;
+                atk = this.properties.initialAtk + this.level * 0.5;
                 break;
             case heroQualitySort.S:
-                atk = this.initialAtk + this.level * 0.8;
+                atk = this.properties.initialAtk + this.level * 0.8;
                 break;
         }
         this.equipments.forEach(equipment => atk += equipment.Atk);
         return atk;
     }
-    get atkDiscript() {
-        return "ATK:   ";
-    }
-
-    initialDef: number = 0;
-
     get Def() {
         var def = 0;
         switch (this.quality) {
             case heroQualitySort.A:
-                def = this.initialDef + this.level * 0.7;
+                def = this.properties.initialDef + this.level * 0.7;
                 break;
             case heroQualitySort.B:
-                def = this.initialDef + this.level * 0.6;
+                def = this.properties.initialDef + this.level * 0.6;
                 break;
             case heroQualitySort.C:
-                def = this.initialDef + this.level * 0.5;
+                def = this.properties.initialDef + this.level * 0.5;
                 break;
             case heroQualitySort.S:
-                def = this.initialDef + this.level * 0.8;
+                def = this.properties.initialDef + this.level * 0.8;
                 break;
         }
         this.equipments.forEach(equipment => def += equipment.Def);
         return def;
-    }
-    get defDiscript() {
-        return "DEF:   ";
     }
     quality: heroQualitySort;
     static equipmentLimit = 5;
@@ -133,34 +113,26 @@ class Hero extends egret.DisplayObjectContainer {
         //console.log(result);
         return result;
     }
+
     constructor() {
         super();
-        this.configId = "";
         this.name = "";
         this.exp = new Bignumber();
         this.isInTeam = false;
         this.equipments = [];
         Hero.Id++;
-        this.identityID = Hero.Id;
-        this._bitmap = new egret.Bitmap();
-        this._bitmap.scaleX = 1.5;
-        this._bitmap.scaleY = 1.5;
-        this._bitmap.x = 0;
-        this._bitmap.y = 0;
-        this.addChild(this._bitmap);
+        this.properties = new Property();
+        this.tempid = Hero.Id;
+        this.addChild(this.properties._bitmap);
     }
-
-    setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort,bitmap: egret.Bitmap) {
-        this.configId = id;
+    tempid = 0;
+    setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort, bitmap: egret.Bitmap) {
+        this.properties.setInformation(id,this.tempid, name, atk, def, bitmap);
         this.name = name;
-        this.initialAtk = atk;
-        this.initialDef = def;
         this.quality = quality;
-        this._bitmap.texture = bitmap.texture;
-        tool.anch(this._bitmap);
-        this._bitmap.touchEnabled = true;
+        this.properties._bitmap.touchEnabled = true;
         var heroBar = new heroStatusBar();
-        this._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
+        this.properties._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
             heroBar.setInformation(this);
             this.addChild(heroBar);
             //this.swapChildren(heroBar,this._bitmap);
@@ -187,6 +159,6 @@ class Hero extends egret.DisplayObjectContainer {
             this.flag = true;
         }
     }
-   
+
 }
 

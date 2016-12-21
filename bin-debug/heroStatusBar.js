@@ -46,14 +46,14 @@ var heroStatusBar = (function (_super) {
         quality.scaleY = 0.7;
         this.propertyField.addChild(quality);
         var atk = new egret.TextField();
-        atk.text = hero.atkDiscript + hero.Atk.toString();
+        atk.text = hero.properties.atkDiscript + hero.Atk.toString();
         atk.textColor = 0X000000;
         atk.y = 50;
         atk.scaleX = 0.7;
         atk.scaleY = 0.7;
         this.propertyField.addChild(atk);
         var def = new egret.TextField();
-        def.text = hero.defDiscript + hero.Def.toString();
+        def.text = hero.properties.defDiscript + hero.Def.toString();
         def.textColor = 0X000000;
         def.x = 110;
         def.y = 50;
@@ -85,7 +85,7 @@ var heroStatusBar = (function (_super) {
     };
     p.setInformation = function (hero) {
         this.background.texture = RES.getRes("bg_png");
-        this.role.texture = hero._bitmap.texture;
+        this.role.texture = hero.properties._bitmap.texture;
         tool.anch(this.role);
         this.role.x = 90;
         this.role.y = 160;

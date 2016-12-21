@@ -65,7 +65,7 @@ var User = (function () {
     };
     //@Check
     p.checkHero = function (hero) {
-        if (this.heros.filter(function (temphero) { return (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID); })) {
+        if (this.heros.filter(function (temphero) { return (temphero.properties.configId == hero.properties.configId) && (temphero.properties.identityID == hero.properties.identityID); })) {
             return true;
         }
         return false;

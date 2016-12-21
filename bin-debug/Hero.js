@@ -32,11 +32,8 @@ var Hero = (function (_super) {
     __extends(Hero, _super);
     function Hero() {
         _super.call(this);
-        this.identityID = 0;
         this.level = 0;
-        this.initialAtk = 0;
         this.physique = 0; //体质
-        this.initialDef = 0;
         this.equipmentCurrent = 0;
         // get Atk() {
         //     var result = 0;
@@ -45,19 +42,15 @@ var Hero = (function (_super) {
         // }
         this._cacheHeroFightPower = 0;
         this.flag = false;
-        this.configId = "";
+        this.tempid = 0;
         this.name = "";
         this.exp = new Bignumber();
         this.isInTeam = false;
         this.equipments = [];
         Hero.Id++;
-        this.identityID = Hero.Id;
-        this._bitmap = new egret.Bitmap();
-        this._bitmap.scaleX = 1.5;
-        this._bitmap.scaleY = 1.5;
-        this._bitmap.x = 0;
-        this._bitmap.y = 0;
-        this.addChild(this._bitmap);
+        this.properties = new Property();
+        this.tempid = Hero.Id;
+        this.addChild(this.properties._bitmap);
     }
     var d = __define,c=Hero,p=c.prototype;
     d(p, "maxHP"
@@ -85,25 +78,20 @@ var Hero = (function (_super) {
             var atk = 0;
             switch (this.quality) {
                 case heroQualitySort.A:
-                    atk = this.initialAtk + this.level * 0.7;
+                    atk = this.properties.initialAtk + this.level * 0.7;
                     break;
                 case heroQualitySort.B:
-                    atk = this.initialAtk + this.level * 0.6;
+                    atk = this.properties.initialAtk + this.level * 0.6;
                     break;
                 case heroQualitySort.C:
-                    atk = this.initialAtk + this.level * 0.5;
+                    atk = this.properties.initialAtk + this.level * 0.5;
                     break;
                 case heroQualitySort.S:
-                    atk = this.initialAtk + this.level * 0.8;
+                    atk = this.properties.initialAtk + this.level * 0.8;
                     break;
             }
             this.equipments.forEach(function (equipment) { return atk += equipment.Atk; });
             return atk;
-        }
-    );
-    d(p, "atkDiscript"
-        ,function () {
-            return "ATK:   ";
         }
     );
     d(p, "Def"
@@ -111,25 +99,20 @@ var Hero = (function (_super) {
             var def = 0;
             switch (this.quality) {
                 case heroQualitySort.A:
-                    def = this.initialDef + this.level * 0.7;
+                    def = this.properties.initialDef + this.level * 0.7;
                     break;
                 case heroQualitySort.B:
-                    def = this.initialDef + this.level * 0.6;
+                    def = this.properties.initialDef + this.level * 0.6;
                     break;
                 case heroQualitySort.C:
-                    def = this.initialDef + this.level * 0.5;
+                    def = this.properties.initialDef + this.level * 0.5;
                     break;
                 case heroQualitySort.S:
-                    def = this.initialDef + this.level * 0.8;
+                    def = this.properties.initialDef + this.level * 0.8;
                     break;
             }
             this.equipments.forEach(function (equipment) { return def += equipment.Def; });
             return def;
-        }
-    );
-    d(p, "defDiscript"
-        ,function () {
-            return "DEF:   ";
         }
     );
     d(p, "fightPower"
@@ -149,16 +132,12 @@ var Hero = (function (_super) {
     );
     p.setinformation = function (id, name, atk, def, quality, bitmap) {
         var _this = this;
-        this.configId = id;
+        this.properties.setInformation(id, this.tempid, name, atk, def, bitmap);
         this.name = name;
-        this.initialAtk = atk;
-        this.initialDef = def;
         this.quality = quality;
-        this._bitmap.texture = bitmap.texture;
-        tool.anch(this._bitmap);
-        this._bitmap.touchEnabled = true;
+        this.properties._bitmap.touchEnabled = true;
         var heroBar = new heroStatusBar();
-        this._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+        this.properties._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             heroBar.setInformation(_this);
             _this.addChild(heroBar);
             //this.swapChildren(heroBar,this._bitmap);

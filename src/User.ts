@@ -65,7 +65,7 @@ class User {
     }
     //@Check
     checkHero(hero: Hero) {
-        if (this.heros.filter(temphero => (temphero.configId == hero.configId) && (temphero.identityID == hero.identityID))) {
+        if (this.heros.filter(temphero => (temphero.properties.configId == hero.properties.configId) && (temphero.properties.identityID == hero.properties.identityID))) {
             return true;
         }
         return false;
