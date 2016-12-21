@@ -6,24 +6,12 @@ enum equipmentQualitySort {
 }
 
 class Equipment extends egret.DisplayObjectContainer {
-    configId: string;
-
     static Id = 0;
-    identityID: number = 0;
-
-    atkItSelf: number = 0;
-
-    defItSelf: number = 0;
-
-    name: string;
-
     quality: equipmentQualitySort;
-
     crystals: Crystal[];
-
-    _bitmap: egret.Bitmap;
     static crystalsLimit = 5;
     crystalsCurrent = 0;
+    properties:Property;
     get Atk() {
         var result = 0;
         this.crystals.forEach(crystal => result += crystal.Atk)
@@ -41,7 +29,7 @@ class Equipment extends egret.DisplayObjectContainer {
                 result = result * 1.2;
                 break;
         }
-        result += this.atkItSelf;
+        result += this.properties.initialAtk;
         return result;
     }
     get Def() {
@@ -61,7 +49,7 @@ class Equipment extends egret.DisplayObjectContainer {
                 result = result * 1.2;
                 break;
         }
-        result += this.defItSelf
+        result += this.properties.initialDef;
         return result;
     }
     // private _cacheEquipmentFightPower = 0;
@@ -76,23 +64,19 @@ class Equipment extends egret.DisplayObjectContainer {
         console.log(result);
         return result;
     }
+    tempid=0;
     constructor() {
         super();
-        this.configId = "";
         this.name = "";
         this.crystals = [];
         Equipment.Id++;
-        this.identityID = Equipment.Id;
-        this._bitmap = new egret.Bitmap();
+        this.tempid = Equipment.Id;
+        this.properties=new Property();
     }
     setinformation(id: string, atk: number, def: number, name: string, quality: equipmentQualitySort, bitmap: egret.Bitmap) {
-        this.configId = id;
-        this.atkItSelf = atk;
-        this.defItSelf = def;
+        this.properties.setInformation(id,this.tempid,name,atk,def,bitmap);
         this.name = name;
         this.quality = quality;
-        this._bitmap.texture = bitmap.texture;
-        tool.anch(this._bitmap);
     }
     addCrystal(user: User, crystal: Crystal) {
         if (this.crystalsCurrent > Equipment.crystalsLimit)

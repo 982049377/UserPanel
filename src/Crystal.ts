@@ -1,45 +1,24 @@
 class Crystal {
-    configId: string;
-
     static Id = 0;
-    identityID: number = 0;
-
-    atk: number = 0;
-
-    def: number = 0;
-
-    name: string;
-
-    _bitmap: egret.Bitmap;
+    properties: Property;
+    tempid=0;
     constructor() {
-        this.configId = "";
-        this.name = "";
         Crystal.Id++;
-        this.identityID = Crystal.Id;
-        this._bitmap = new egret.Bitmap();
+        this.tempid = Crystal.Id;
+        this.properties = new Property();
     }
     get Atk() {
-        return this.atk;
+        return this.properties.initialAtk;
     }
     get Def() {
-        return this.def;
+        return this.properties.initialDef;
     }
-    // private _cacheCrystalFightPower = 0;
-
     get fightPower() {
-        // if (!this._cacheCrystalFightPower) {
-        var result = this.atk * 1.2 + this.def * 0.8;
-        // this._cacheCrystalFightPower=result;
-        // }
-        // return this._cacheCrystalFightPower;
+        var result = this.properties.initialAtk* 1.2 + this.properties.initialDef* 0.8;
         return result;
     }
     setinformation(id: string, atk: number, def: number, name: string, bitmap: egret.Bitmap) {
-        this.configId = id;
-        this.atk = atk;
-        this.def = def;
-        this.name = name;
-        this._bitmap.texture = bitmap.texture;
+        this.properties.setInformation(id,this.tempid,name,atk,def,bitmap);
     }
 
 }

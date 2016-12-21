@@ -1,42 +1,29 @@
 var Crystal = (function () {
     function Crystal() {
-        this.identityID = 0;
-        this.atk = 0;
-        this.def = 0;
-        this.configId = "";
-        this.name = "";
+        this.tempid = 0;
         Crystal.Id++;
-        this.identityID = Crystal.Id;
-        this._bitmap = new egret.Bitmap();
+        this.tempid = Crystal.Id;
+        this.properties = new Property();
     }
     var d = __define,c=Crystal,p=c.prototype;
     d(p, "Atk"
         ,function () {
-            return this.atk;
+            return this.properties.initialAtk;
         }
     );
     d(p, "Def"
         ,function () {
-            return this.def;
+            return this.properties.initialDef;
         }
     );
     d(p, "fightPower"
-        // private _cacheCrystalFightPower = 0;
         ,function () {
-            // if (!this._cacheCrystalFightPower) {
-            var result = this.atk * 1.2 + this.def * 0.8;
-            // this._cacheCrystalFightPower=result;
-            // }
-            // return this._cacheCrystalFightPower;
+            var result = this.properties.initialAtk * 1.2 + this.properties.initialDef * 0.8;
             return result;
         }
     );
     p.setinformation = function (id, atk, def, name, bitmap) {
-        this.configId = id;
-        this.atk = atk;
-        this.def = def;
-        this.name = name;
-        this._bitmap.texture = bitmap.texture;
+        this.properties.setInformation(id, this.tempid, name, atk, def, bitmap);
     };
     Crystal.Id = 0;
     return Crystal;

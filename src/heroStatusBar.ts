@@ -109,7 +109,7 @@ class heroStatusBar extends egret.DisplayObjectContainer {
         this.barname.text = hero.name;
 
         for (var i = 0; i < hero.equipmentCurrent; i++) {
-            this.grids[i].call(hero.equipments[i]._bitmap);
+            this.grids[i].call(hero.equipments[i].properties._bitmap);
         }
         this.initPropertyField(hero);
     }

@@ -9,16 +9,13 @@ var Equipment = (function (_super) {
     __extends(Equipment, _super);
     function Equipment() {
         _super.call(this);
-        this.identityID = 0;
-        this.atkItSelf = 0;
-        this.defItSelf = 0;
         this.crystalsCurrent = 0;
-        this.configId = "";
+        this.tempid = 0;
         this.name = "";
         this.crystals = [];
         Equipment.Id++;
-        this.identityID = Equipment.Id;
-        this._bitmap = new egret.Bitmap();
+        this.tempid = Equipment.Id;
+        this.properties = new Property();
     }
     var d = __define,c=Equipment,p=c.prototype;
     d(p, "Atk"
@@ -39,7 +36,7 @@ var Equipment = (function (_super) {
                     result = result * 1.2;
                     break;
             }
-            result += this.atkItSelf;
+            result += this.properties.initialAtk;
             return result;
         }
     );
@@ -61,7 +58,7 @@ var Equipment = (function (_super) {
                     result = result * 1.2;
                     break;
             }
-            result += this.defItSelf;
+            result += this.properties.initialDef;
             return result;
         }
     );
@@ -79,13 +76,9 @@ var Equipment = (function (_super) {
         }
     );
     p.setinformation = function (id, atk, def, name, quality, bitmap) {
-        this.configId = id;
-        this.atkItSelf = atk;
-        this.defItSelf = def;
+        this.properties.setInformation(id, this.tempid, name, atk, def, bitmap);
         this.name = name;
         this.quality = quality;
-        this._bitmap.texture = bitmap.texture;
-        tool.anch(this._bitmap);
     };
     p.addCrystal = function (user, crystal) {
         if (this.crystalsCurrent > Equipment.crystalsLimit)
