@@ -7,6 +7,7 @@ var Crystal = (function () {
         this.name = "";
         Crystal.Id++;
         this.identityID = Crystal.Id;
+        this._bitmap = new egret.Bitmap();
     }
     var d = __define,c=Crystal,p=c.prototype;
     d(p, "Atk"
@@ -30,11 +31,12 @@ var Crystal = (function () {
             return result;
         }
     );
-    p.setinformation = function (id, atk, def, name) {
+    p.setinformation = function (id, atk, def, name, bitmap) {
         this.configId = id;
         this.atk = atk;
         this.def = def;
         this.name = name;
+        this._bitmap.texture = bitmap.texture;
     };
     Crystal.Id = 0;
     return Crystal;

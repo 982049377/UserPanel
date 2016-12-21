@@ -22,6 +22,8 @@ class Equipment extends egret.DisplayObjectContainer {
     crystals: Crystal[];
 
     _bitmap: egret.Bitmap;
+    static crystalsLimit = 5;
+    crystalsCurrent = 0;
     get Atk() {
         var result = 0;
         this.crystals.forEach(crystal => result += crystal.Atk)
@@ -83,23 +85,33 @@ class Equipment extends egret.DisplayObjectContainer {
         this.identityID = Equipment.Id;
         this._bitmap = new egret.Bitmap();
     }
-    setinformation(id: string, atk: number, def: number, name: string, quality: equipmentQualitySort, texture: egret.Texture) {
+    setinformation(id: string, atk: number, def: number, name: string, quality: equipmentQualitySort, bitmap: egret.Bitmap) {
         this.configId = id;
         this.atkItSelf = atk;
         this.defItSelf = def;
         this.name = name;
         this.quality = quality;
-        this._bitmap.texture = texture;
+        this._bitmap.texture = bitmap.texture;
         tool.anch(this._bitmap);
     }
     addCrystal(user: User, crystal: Crystal) {
-        this.crystals.push(crystal);
-        user.flag = true;
+        if (this.crystalsCurrent > Equipment.crystalsLimit)
+            console.error("宝石超过上限，不能镶嵌");
+        else {
+            this.crystals.push(crystal);
+            user.flag = true;
+            this.crystalsCurrent++;
+        }
     }
     removeCrystal(user: User, crystal: Crystal) {
-        var index = this.crystals.indexOf(crystal);
-        this.crystals.splice(index);
-        user.flag = true;
+        if (this.crystalsCurrent < 0)
+            console.error(this.name + "没有宝石，不能卸载");
+        else {
+            var index = this.crystals.indexOf(crystal);
+            this.crystals.splice(index);
+            user.flag = true;
+            this.crystalsCurrent--;
+        }
     }
 }
 

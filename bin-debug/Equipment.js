@@ -12,6 +12,7 @@ var Equipment = (function (_super) {
         this.identityID = 0;
         this.atkItSelf = 0;
         this.defItSelf = 0;
+        this.crystalsCurrent = 0;
         this.configId = "";
         this.name = "";
         this.crystals = [];
@@ -77,25 +78,36 @@ var Equipment = (function (_super) {
             return result;
         }
     );
-    p.setinformation = function (id, atk, def, name, quality, texture) {
+    p.setinformation = function (id, atk, def, name, quality, bitmap) {
         this.configId = id;
         this.atkItSelf = atk;
         this.defItSelf = def;
         this.name = name;
         this.quality = quality;
-        this._bitmap.texture = texture;
+        this._bitmap.texture = bitmap.texture;
         tool.anch(this._bitmap);
     };
     p.addCrystal = function (user, crystal) {
-        this.crystals.push(crystal);
-        user.flag = true;
+        if (this.crystalsCurrent > Equipment.crystalsLimit)
+            console.error("宝石超过上限，不能镶嵌");
+        else {
+            this.crystals.push(crystal);
+            user.flag = true;
+            this.crystalsCurrent++;
+        }
     };
     p.removeCrystal = function (user, crystal) {
-        var index = this.crystals.indexOf(crystal);
-        this.crystals.splice(index);
-        user.flag = true;
+        if (this.crystalsCurrent < 0)
+            console.error(this.name + "没有宝石，不能卸载");
+        else {
+            var index = this.crystals.indexOf(crystal);
+            this.crystals.splice(index);
+            user.flag = true;
+            this.crystalsCurrent--;
+        }
     };
     Equipment.Id = 0;
+    Equipment.crystalsLimit = 5;
     return Equipment;
 }(egret.DisplayObjectContainer));
 egret.registerClass(Equipment,'Equipment');

@@ -9,11 +9,14 @@ class Crystal {
     def: number = 0;
 
     name: string;
+
+    _bitmap: egret.Bitmap;
     constructor() {
         this.configId = "";
         this.name = "";
         Crystal.Id++;
         this.identityID = Crystal.Id;
+        this._bitmap = new egret.Bitmap();
     }
     get Atk() {
         return this.atk;
@@ -31,11 +34,12 @@ class Crystal {
         // return this._cacheCrystalFightPower;
         return result;
     }
-    setinformation(id: string, atk: number, def: number, name: string) {
+    setinformation(id: string, atk: number, def: number, name: string, bitmap: egret.Bitmap) {
         this.configId = id;
         this.atk = atk;
         this.def = def;
         this.name = name;
+        this._bitmap.texture = bitmap.texture;
     }
 
 }

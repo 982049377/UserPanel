@@ -147,14 +147,14 @@ var Hero = (function (_super) {
             return result;
         }
     );
-    p.setinformation = function (id, name, atk, def, quality, texture) {
+    p.setinformation = function (id, name, atk, def, quality, bitmap) {
         var _this = this;
         this.configId = id;
         this.name = name;
         this.initialAtk = atk;
         this.initialDef = def;
         this.quality = quality;
-        this._bitmap.texture = texture;
+        this._bitmap.texture = bitmap.texture;
         tool.anch(this._bitmap);
         this._bitmap.touchEnabled = true;
         var heroBar = new heroStatusBar();

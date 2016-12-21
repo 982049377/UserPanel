@@ -150,13 +150,13 @@ class Hero extends egret.DisplayObjectContainer {
         this.addChild(this._bitmap);
     }
 
-    setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort, texture: egret.Texture) {
+    setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort,bitmap: egret.Bitmap) {
         this.configId = id;
         this.name = name;
         this.initialAtk = atk;
         this.initialDef = def;
         this.quality = quality;
-        this._bitmap.texture = texture;
+        this._bitmap.texture = bitmap.texture;
         tool.anch(this._bitmap);
         this._bitmap.touchEnabled = true;
         var heroBar = new heroStatusBar();
