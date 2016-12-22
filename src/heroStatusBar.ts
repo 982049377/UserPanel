@@ -107,11 +107,14 @@ class heroStatusBar extends egret.DisplayObjectContainer {
         this.role.x = 90;
         this.role.y = 160;
         this.barname.text = hero.name;
+        this.initPropertyField(hero);
 
         for (var i = 0; i < hero.equipmentCurrent; i++) {
             this.grids[i].call(hero.equipments[i]);
         }
-        this.initPropertyField(hero);
+        for (var i = 0; i < hero.equipmentCurrent; i++) {
+            this.grids[i].Tap();
+        }
     }
 
 }
@@ -139,6 +142,10 @@ class Grid extends egret.DisplayObjectContainer {
         this.contentBitmap.scaleX = scale;
         this.contentBitmap.scaleY = scale;
         //console.log(scale);
+
+
+    }
+    Tap() {
         var details = new Details();
         this.contentBitmap.touchEnabled = true;
         this.contentBitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
@@ -148,5 +155,6 @@ class Grid extends egret.DisplayObjectContainer {
             //console.log("123456789123446587");
         }, this);
     }
+
 
 }

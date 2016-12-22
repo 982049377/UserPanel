@@ -15,19 +15,21 @@ var Cache: MethodDecorator = (target: any, propertyName, desc: PropertyDescripto
     }
     return desc;
 }
-enum heroQualitySort {
-    C,//普通
-    B,//稀有
-    A,//史诗
-    S//传说
-}
 
-class Hero extends egret.DisplayObjectContainer {
+class Hero extends egret.DisplayObjectContainer implements Objectdetail{
     static Id = 0;
     exp: Bignumber;
     level: number = 0;
     physique: number = 0;//体质
     properties: Property;
+
+    getClassName(){return "Hero";}
+
+    getQualityDescript(){return heroQualitySort[this.quality];}
+
+    // getAtkDiscript(){return this.properties.atkDiscript;}
+
+    // getDefDiscript(){return this.properties.defDiscript;}
 
     get maxHP() {
         var maxhp: number;
@@ -116,7 +118,6 @@ class Hero extends egret.DisplayObjectContainer {
 
     constructor() {
         super();
-        this.name = "";
         this.exp = new Bignumber();
         this.isInTeam = false;
         this.equipments = [];

@@ -156,7 +156,7 @@ var Main = (function (_super) {
         console.log("user1关羽上阵战斗力" + i);
         console.log("user1关羽atk" + guanyu.Atk);
         console.log("user1关羽def" + guanyu.Def);
-        // var user2 = new User();
+        /// var user2 = new User();
         // user2.setinformation("wang")
         // var guanyu2 = new Hero();
         // guanyu2.setinformation("001", "关羽", 95, 85, heroQualitySort.S);

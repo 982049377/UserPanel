@@ -21,13 +21,6 @@ var Cache = function (target, propertyName, desc) {
     };
     return desc;
 };
-var heroQualitySort;
-(function (heroQualitySort) {
-    heroQualitySort[heroQualitySort["C"] = 0] = "C";
-    heroQualitySort[heroQualitySort["B"] = 1] = "B";
-    heroQualitySort[heroQualitySort["A"] = 2] = "A";
-    heroQualitySort[heroQualitySort["S"] = 3] = "S"; //传说
-})(heroQualitySort || (heroQualitySort = {}));
 var Hero = (function (_super) {
     __extends(Hero, _super);
     function Hero() {
@@ -43,7 +36,6 @@ var Hero = (function (_super) {
         this._cacheHeroFightPower = 0;
         this.flag = false;
         this.tempid = 0;
-        this.name = "";
         this.exp = new Bignumber();
         this.isInTeam = false;
         this.equipments = [];
@@ -53,7 +45,11 @@ var Hero = (function (_super) {
         this.addChild(this.properties._bitmap);
     }
     var d = __define,c=Hero,p=c.prototype;
+    p.getClassName = function () { return "Hero"; };
+    p.getQualityDescript = function () { return heroQualitySort[this.quality]; };
     d(p, "maxHP"
+        // getAtkDiscript(){return this.properties.atkDiscript;}
+        // getDefDiscript(){return this.properties.defDiscript;}
         ,function () {
             var maxhp;
             switch (this.quality) {
@@ -171,5 +167,5 @@ var Hero = (function (_super) {
     ], p, "fightPower", null);
     return Hero;
 }(egret.DisplayObjectContainer));
-egret.registerClass(Hero,'Hero');
+egret.registerClass(Hero,'Hero',["Objectdetail"]);
 //# sourceMappingURL=Hero.js.map

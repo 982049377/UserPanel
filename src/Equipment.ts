@@ -1,17 +1,18 @@
-enum equipmentQualitySort {
-    Common,//普通
-    Rare,//稀有
-    Epic,//史诗
-    Story//传说
-}
-
-class Equipment extends egret.DisplayObjectContainer {
+class Equipment extends egret.DisplayObjectContainer implements Objectdetail {
     static Id = 0;
     quality: equipmentQualitySort;
     crystals: Crystal[];
     static crystalsLimit = 5;
     crystalsCurrent = 0;
-    properties:Property;
+    properties: Property;
+    getClassName(): String {
+        return "Equipment";
+    }
+
+    getQualityDescript(): String {
+        return equipmentQualitySort[this.quality];
+    }
+
     get Atk() {
         var result = 0;
         this.crystals.forEach(crystal => result += crystal.Atk)
@@ -64,18 +65,17 @@ class Equipment extends egret.DisplayObjectContainer {
         //console.log(result);
         return result;
     }
-    tempid=0;
+    tempid = 0;
     constructor() {
         super();
-        this.name = "";
         this.crystals = [];
         Equipment.Id++;
         this.tempid = Equipment.Id;
-        this.properties=new Property();
+        this.properties = new Property();
+        this.addChild(this.properties._bitmap);
     }
     setinformation(id: string, atk: number, def: number, name: string, quality: equipmentQualitySort, bitmap: egret.Bitmap) {
-        this.properties.setInformation(id,this.tempid,name,atk,def,bitmap);
-        this.name = name;
+        this.properties.setInformation(id, this.tempid, name, atk, def, bitmap);
         this.quality = quality;
     }
     addCrystal(user: User, crystal: Crystal) {
@@ -89,7 +89,7 @@ class Equipment extends egret.DisplayObjectContainer {
     }
     removeCrystal(user: User, crystal: Crystal) {
         if (this.crystalsCurrent < 0)
-            console.error(this.name + "没有宝石，不能卸载");
+            console.error(this.properties.name + "没有宝石，不能卸载");
         else {
             var index = this.crystals.indexOf(crystal);
             this.crystals.splice(index);

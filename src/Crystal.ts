@@ -1,11 +1,24 @@
-class Crystal {
+
+
+class Crystal extends egret.DisplayObjectContainer implements Objectdetail {
     static Id = 0;
+    quality: crystalQualitySort;
     properties: Property;
-    tempid=0;
+    tempid = 0;
     constructor() {
+        super();
         Crystal.Id++;
         this.tempid = Crystal.Id;
         this.properties = new Property();
+        this.addChild(this.properties._bitmap);
+    }
+
+    getClassName(): String {
+        return "Crystal";
+    }
+
+    getQualityDescript(): String {
+        return crystalQualitySort[this.quality];
     }
     get Atk() {
         return this.properties.initialAtk;
@@ -14,11 +27,11 @@ class Crystal {
         return this.properties.initialDef;
     }
     get fightPower() {
-        var result = this.properties.initialAtk* 1.2 + this.properties.initialDef* 0.8;
+        var result = this.properties.initialAtk * 1.2 + this.properties.initialDef * 0.8;
         return result;
     }
     setinformation(id: string, atk: number, def: number, name: string, bitmap: egret.Bitmap) {
-        this.properties.setInformation(id,this.tempid,name,atk,def,bitmap);
+        this.properties.setInformation(id, this.tempid, name, atk, def, bitmap);
     }
 
 }

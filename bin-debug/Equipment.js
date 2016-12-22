@@ -1,23 +1,22 @@
-var equipmentQualitySort;
-(function (equipmentQualitySort) {
-    equipmentQualitySort[equipmentQualitySort["Common"] = 0] = "Common";
-    equipmentQualitySort[equipmentQualitySort["Rare"] = 1] = "Rare";
-    equipmentQualitySort[equipmentQualitySort["Epic"] = 2] = "Epic";
-    equipmentQualitySort[equipmentQualitySort["Story"] = 3] = "Story"; //传说
-})(equipmentQualitySort || (equipmentQualitySort = {}));
 var Equipment = (function (_super) {
     __extends(Equipment, _super);
     function Equipment() {
         _super.call(this);
         this.crystalsCurrent = 0;
         this.tempid = 0;
-        this.name = "";
         this.crystals = [];
         Equipment.Id++;
         this.tempid = Equipment.Id;
         this.properties = new Property();
+        this.addChild(this.properties._bitmap);
     }
     var d = __define,c=Equipment,p=c.prototype;
+    p.getClassName = function () {
+        return "Equipment";
+    };
+    p.getQualityDescript = function () {
+        return equipmentQualitySort[this.quality];
+    };
     d(p, "Atk"
         ,function () {
             var result = 0;
@@ -77,7 +76,6 @@ var Equipment = (function (_super) {
     );
     p.setinformation = function (id, atk, def, name, quality, bitmap) {
         this.properties.setInformation(id, this.tempid, name, atk, def, bitmap);
-        this.name = name;
         this.quality = quality;
     };
     p.addCrystal = function (user, crystal) {
@@ -91,7 +89,7 @@ var Equipment = (function (_super) {
     };
     p.removeCrystal = function (user, crystal) {
         if (this.crystalsCurrent < 0)
-            console.error(this.name + "没有宝石，不能卸载");
+            console.error(this.properties.name + "没有宝石，不能卸载");
         else {
             var index = this.crystals.indexOf(crystal);
             this.crystals.splice(index);
@@ -103,5 +101,5 @@ var Equipment = (function (_super) {
     Equipment.crystalsLimit = 5;
     return Equipment;
 }(egret.DisplayObjectContainer));
-egret.registerClass(Equipment,'Equipment');
+egret.registerClass(Equipment,'Equipment',["Objectdetail"]);
 //# sourceMappingURL=Equipment.js.map

@@ -1,11 +1,20 @@
-var Crystal = (function () {
+var Crystal = (function (_super) {
+    __extends(Crystal, _super);
     function Crystal() {
+        _super.call(this);
         this.tempid = 0;
         Crystal.Id++;
         this.tempid = Crystal.Id;
         this.properties = new Property();
+        this.addChild(this.properties._bitmap);
     }
     var d = __define,c=Crystal,p=c.prototype;
+    p.getClassName = function () {
+        return "Crystal";
+    };
+    p.getQualityDescript = function () {
+        return crystalQualitySort[this.quality];
+    };
     d(p, "Atk"
         ,function () {
             return this.properties.initialAtk;
@@ -27,6 +36,6 @@ var Crystal = (function () {
     };
     Crystal.Id = 0;
     return Crystal;
-}());
-egret.registerClass(Crystal,'Crystal');
+}(egret.DisplayObjectContainer));
+egret.registerClass(Crystal,'Crystal',["Objectdetail"]);
 //# sourceMappingURL=Crystal.js.map
