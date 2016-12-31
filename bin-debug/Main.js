@@ -28,8 +28,14 @@
 //////////////////////////////////////////////////////////////////////////////////////
 var Main = (function (_super) {
     __extends(Main, _super);
+    //public sssssss;
     function Main() {
         _super.call(this);
+        this.prevX = 0;
+        this.map_Grid = 0;
+        /**帧事件' */
+        this.step = 10;
+        this.i = 2;
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
     var d = __define,c=Main,p=c.prototype;
@@ -96,99 +102,192 @@ var Main = (function (_super) {
             this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
         }
     };
-    /**
-     * 创建游戏场景
-     * Create a game scene
-     */
+    // private _grid:Grid;
+    // private _path:Array<MapNode>=new Array;
     p.createGameScene = function () {
-        var layoutController = LayoutController.getIntance();
-        this.addChild(layoutController);
-        var user = new User();
-        user.setinformation("982049377");
-        var guanyu = new Hero();
-        var bitmap = this.createBitmapByName("001_png");
-        guanyu.setinformation("001", "关羽", 95, 85, heroQualitySort.S, bitmap);
-        var zhangfei = new Hero();
-        bitmap = this.createBitmapByName("002_png");
-        zhangfei.setinformation("002", "张飞", 96, 70, heroQualitySort.S, bitmap);
-        var qinglongyanyuedao = new Equipment();
-        bitmap = this.createBitmapByName("weapan001_png");
-        qinglongyanyuedao.setinformation("we001", 10, 0, "青龙偃月刀", equipmentQualitySort.Story, bitmap);
-        var atkCrystal = new Crystal();
-        bitmap = this.createBitmapByName("atk001_png");
-        atkCrystal.setinformation("atk001", 5, 0, "攻击宝石", bitmap);
-        var defCrystal = new Crystal();
-        bitmap = this.createBitmapByName("def001_png");
-        defCrystal.setinformation("def001", 0, 5, "防御宝石", bitmap);
-        guanyu.x = 100;
-        guanyu.y = 100;
-        zhangfei.x = 100;
-        zhangfei.y = 600;
-        this.addChild(guanyu);
-        this.addChild(zhangfei);
-        var i = user.fightPower;
-        console.log("user1没英雄战斗力" + i);
-        user.addHero(guanyu);
-        user.inToTeam(guanyu);
-        i = user.fightPower;
-        console.log("user1关羽上阵战斗力" + i); //182
-        console.log("gunayu" + guanyu.fightPower);
-        guanyu.addEquipment(user, qinglongyanyuedao);
-        i = user.fightPower;
-        console.log("user1关羽装备青龙偃月刀上阵战斗力" + i); //194
-        console.log("gunayu" + guanyu.fightPower);
-        qinglongyanyuedao.addCrystal(user, atkCrystal);
-        console.log("gunayu  addCrystal " + guanyu.fightPower);
-        console.log("刀  addCrystal " + qinglongyanyuedao.fightPower);
-        i = user.fightPower;
-        console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗）上阵战斗力" + i); //201.2
-        console.log("gunayu  addCrystal" + guanyu.fightPower);
-        console.log("刀  addCrystal " + qinglongyanyuedao.fightPower);
-        qinglongyanyuedao.addCrystal(user, defCrystal);
-        i = user.fightPower;
-        console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗,防御宝石1颗）上阵战斗力" + i); //206
-        console.log("gunayu战斗力" + guanyu.fightPower);
-        user.addHero(zhangfei);
-        user.inToTeam(zhangfei);
-        i = user.fightPower;
-        console.log("user1关羽and张飞上阵战斗力" + i); //377.2
-        console.log("gunayu战斗力" + guanyu.fightPower);
-        user.outToTean(zhangfei);
-        i = user.fightPower;
-        console.log("user1关羽上阵战斗力" + i);
-        console.log("user1关羽atk" + guanyu.Atk);
-        console.log("user1关羽def" + guanyu.Def);
-        /// var user2 = new User();
-        // user2.setinformation("wang")
-        // var guanyu2 = new Hero();
-        // guanyu2.setinformation("001", "关羽", 95, 85, heroQualitySort.S);
-        // i = user2.fightPower;
-        // console.log("user2" + i);
-        // user2.addHero(guanyu2);
-        // user2.inToTeam(guanyu2);
-        // i = user2.fightPower;
-        // console.log("user2关羽上阵战斗力" + i);
-        /* 测试Bignumber
-         console.log(Bignumber.fold);
-         Bignumber.fold=10;
-         console.log(Bignumber.fold);
-         var s: Bignumber = new Bignumber();
-         s.setNumber(99);
-         var t = 100;
-         var w: Bignumber = new Bignumber();;
-         w.setNumber(100);
-         s.addNumber(t);
-         console.log(s.toString());
-         s.setNumber(99);
-         s.subtractNumber(t);
-         console.log(s.toString());
-         s.setNumber(99);
-         s.addBigNumber(w);
-         console.log(s.toString());
-         s.setNumber(99);
-         s.subtractBigNumber(w);
-         console.log(s.toString());
-         s.setNumber(99);*/
+        this._container = new egret.DisplayObjectContainer();
+        this._bg = new TileMap();
+        this._container.addChild(this._bg);
+        this._bg.Create();
+        this._player = new Role();
+        this._player.x = 0;
+        this._player.y = 200;
+        this._player.scaleX = 0.8;
+        this._player.scaleY = 0.8;
+        this._container.addChild(this._player);
+        this._player.firstCreat();
+        //this._player.Creat();
+        this.addChild(this._container);
+        this.walkByTap();
+        this.mapMove();
+        // var layoutController = LayoutController.getIntance();
+        // this.addChild(layoutController);
+        // var user = new User();
+        // user.setinformation("982049377")
+        // var guanyu = new Hero();
+        // var bitmap = this.createBitmapByName("001_png");
+        // guanyu.setinformation("001", "关羽", 95, 85, heroQualitySort.S, bitmap);
+        // var zhangfei = new Hero();
+        // bitmap = this.createBitmapByName("002_png");
+        // zhangfei.setinformation("002", "张飞", 96, 70, heroQualitySort.S, bitmap);
+        // var qinglongyanyuedao = new Equipment();
+        // bitmap = this.createBitmapByName("weapan001_png");
+        // qinglongyanyuedao.setinformation("we001", 10, 0, "青龙偃月刀", equipmentQualitySort.Story, bitmap);
+        // var atkCrystal = new Crystal();
+        // bitmap = this.createBitmapByName("atk001_png");
+        // atkCrystal.setinformation("atk001", 5, 0, "攻击宝石", bitmap)
+        // var defCrystal = new Crystal();
+        // bitmap = this.createBitmapByName("def001_png");
+        // defCrystal.setinformation("def001", 0, 5, "防御宝石", bitmap)
+        // guanyu.x = 100;
+        // guanyu.y = 100;
+        // zhangfei.x = 100;
+        // zhangfei.y = 600;
+        // this.addChild(guanyu);
+        // this.addChild(zhangfei)
+        // var i = user.fightPower;
+        // console.log("user1没英雄战斗力" + i);
+        // user.addHero(guanyu);
+        // user.inToTeam(guanyu);
+        // i = user.fightPower;
+        // console.log("user1关羽上阵战斗力" + i);//182
+        // console.log("gunayu" + guanyu.fightPower)
+        // guanyu.addEquipment(user, qinglongyanyuedao);
+        // i = user.fightPower;
+        // console.log("user1关羽装备青龙偃月刀上阵战斗力" + i);//194
+        // console.log("gunayu" + guanyu.fightPower)
+        // qinglongyanyuedao.addCrystal(user, atkCrystal);
+        // console.log("gunayu  addCrystal " + guanyu.fightPower)
+        // console.log("刀  addCrystal " + qinglongyanyuedao.fightPower)
+        // i = user.fightPower;
+        // console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗）上阵战斗力" + i);//201.2
+        // console.log("gunayu  addCrystal" + guanyu.fightPower)
+        // console.log("刀  addCrystal " + qinglongyanyuedao.fightPower)
+        // qinglongyanyuedao.addCrystal(user, defCrystal);
+        // i = user.fightPower;
+        // console.log("user1关羽装备青龙偃月刀（镶嵌攻击宝石1颗,防御宝石1颗）上阵战斗力" + i);//206
+        // console.log("gunayu战斗力" + guanyu.fightPower)
+        // user.addHero(zhangfei);
+        // user.inToTeam(zhangfei);
+        // i = user.fightPower;
+        // console.log("user1关羽and张飞上阵战斗力" + i);//377.2
+        // console.log("gunayu战斗力" + guanyu.fightPower)
+        // user.outToTean(zhangfei);
+        // i = user.fightPower;
+        // console.log("user1关羽上阵战斗力" + i);
+        // console.log("user1关羽atk" + guanyu.Atk);
+        // console.log("user1关羽def" + guanyu.Def);
+    };
+    p.mapMove = function () {
+        /***地图 */
+        var _this = this;
+        this._container.touchEnabled = true;
+        this._container.addEventListener(egret.TouchEvent.TOUCH_BEGIN, function (e) {
+            _this.prevX = e.stageX;
+            //this.offsetx=e.stageX-this._bg.x;
+            _this.addEventListener(egret.TouchEvent.TOUCH_MOVE, _this.onMove, _this);
+        }, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_END, function () {
+            _this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, _this.onMove, _this);
+        }, this);
+    };
+    p.walkByTap = function () {
+        var _this = this;
+        var idle = new Idle(this._player);
+        var walk = new Walk(this._player);
+        this.touchEnabled = true;
+        this.parent.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, function (evt) {
+            _this.setAstar();
+            _this._bg._astar.setStartNode(Math.floor((_this._player.x) / 100), Math.floor(_this._player.y / 100));
+            //this._bg._astar.setStartNode(Math.floor(this._player.x/100),Math.floor(this._player.y/100));
+            //this._bg._astar.setEndNode(Math.floor(evt.stageX/100),Math.floor(evt.stageY/100));
+            _this._bg._astar.setEndNode(Math.floor((evt.stageX + _this.map_Grid) / 100), Math.floor(evt.stageY / 100));
+            var i = _this._bg._astar.findPath();
+            if (i == 1) {
+                _this._player.SetState(walk);
+                //egret.Tween.removeTweens(this._player);
+                _this.addEventListener(egret.Event.ENTER_FRAME, _this.onEnterFrame, _this);
+                _this.onEnterFrame;
+                //this.Move();
+                i = 2;
+            }
+            else if (i == 0) {
+                _this._player.SetState(idle);
+                _this.setAstar();
+                i = 2;
+            }
+            else if (i == -1) {
+                _this._player.SetState(idle);
+                _this.setAstar();
+                i = 2;
+            }
+        }, this);
+        egret.startTick(function () {
+            if (_this._bg._astar._path[0] != null) {
+                if (_this._player.x == (_this._bg._astar._path[0].x) * _this._bg.MapSize + 50 && _this._player.y == _this._bg._astar._path[0].y * _this._bg.MapSize + 50) {
+                    _this._player.SetState(idle);
+                }
+            }
+            return false;
+        }, this);
+    };
+    p.onMove = function (e) {
+        //this._bg.x+=offsetx;
+        //console.log("onMove");
+        this.offsetx = this.prevX - e.stageX;
+        if (this.offsetx > 0) {
+            egret.Tween.get(this._container).to({ x: -360 }, 200);
+            this.map_Grid = 360;
+        }
+        if (this.offsetx < 0) {
+            //console.log("12345789465413213212313");
+            egret.Tween.get(this._container).to({ x: 0 }, 200);
+            this.map_Grid = 0;
+        }
+    };
+    p.onEnterFrame = function (event) {
+        //console.log('hi');
+        var n = this._bg._astar._path.length;
+        console.log(n - this.i);
+        if (n - this.i < 0)
+            return;
+        var targetX = this._bg._astar._path[n - this.i].x * this._bg.MapSize + this._bg.MapSize / 2;
+        var targetY = this._bg._astar._path[n - this.i].y * this._bg.MapSize + this._bg.MapSize / 2;
+        var dx = targetX - this._player.x;
+        var dy = targetY - this._player.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < this.step * 2) {
+            this.i++;
+            if (this.i > this._bg._astar._path.length) {
+                this.removeEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+                console.log('remove');
+            }
+        }
+        else {
+            if (targetX - this._player.x > this.step)
+                this._player.x += this.step;
+            if (targetY - this._player.y > this.step)
+                this._player.y += this.step;
+            if (this._player.x - targetX > this.step)
+                this._player.x -= this.step;
+            if (this._player.y - targetY > this.step)
+                this._player.y -= this.step;
+            if (Math.abs(this._player.x - targetX) <= this.step) {
+                this._player.x = targetX;
+            }
+            if (Math.abs(this._player.y - targetY) <= this.step) {
+                this._player.y = targetY;
+            }
+        }
+        // console.log("targetX:"+targetX+"targetY:"+targetY);
+        // console.log("person.x:"+this._player.x+"person.y:"+this._player.y); 
+        // console.log("dx:"+dx+"dy:"+dy); 
+    };
+    p.setAstar = function () {
+        egret.Tween.removeTweens(this._player);
+        this._bg._astar.setStartNode(Math.floor(this._player.x / 100), Math.floor(this._player.y / 100));
+        this._bg._astar.empty();
+        this.i = 1;
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
@@ -200,7 +299,48 @@ var Main = (function (_super) {
         result.texture = texture;
         return result;
     };
+    /**
+     * 描述文件加载成功，开始播放动画
+     * Description file loading is successful, start to play the animation
+     */
+    p.startAnimation = function (result) {
+        var self = this;
+        var parser = new egret.HtmlTextParser();
+        var textflowArr = [];
+        for (var i = 0; i < result.length; i++) {
+            textflowArr.push(parser.parser(result[i]));
+        }
+        var textfield = self.textfield;
+        var count = -1;
+        var change = function () {
+            count++;
+            if (count >= textflowArr.length) {
+                count = 0;
+            }
+            var lineArr = textflowArr[count];
+            self.changeDescription(textfield, lineArr);
+            var tw = egret.Tween.get(textfield);
+            tw.to({ "alpha": 1 }, 200);
+            tw.wait(2000);
+            tw.to({ "alpha": 0 }, 200);
+            tw.call(change, self);
+        };
+        change();
+    };
+    /**
+     * 切换描述内容
+     * Switch to described content
+     */
+    p.changeDescription = function (textfield, textFlow) {
+        textfield.textFlow = textFlow;
+    };
     return Main;
 }(egret.DisplayObjectContainer));
 egret.registerClass(Main,'Main');
+/*
+class ss{
+   public ssss(e:Main){
+       e.sssssss;
+   }
+}*/ 
 //# sourceMappingURL=Main.js.map
