@@ -142,8 +142,6 @@ class Grid extends egret.DisplayObjectContainer {
         this.contentBitmap.scaleX = scale;
         this.contentBitmap.scaleY = scale;
         //console.log(scale);
-
-
     }
     Tap() {
         var details = new Details();

@@ -117,7 +117,8 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene(): void {
-
+        var layoutController = LayoutController.getIntance();
+        this.addChild(layoutController);
         var user = new User();
         user.setinformation("982049377")
         var guanyu = new Hero();
@@ -183,8 +184,8 @@ class Main extends egret.DisplayObjectContainer {
         console.log("user1关羽atk" + guanyu.Atk);
         console.log("user1关羽def" + guanyu.Def);
 
-        var la = new LayoutController();
-        
+
+
         /// var user2 = new User();
         // user2.setinformation("wang")
         // var guanyu2 = new Hero();

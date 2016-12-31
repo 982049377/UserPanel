@@ -101,6 +101,8 @@ var Main = (function (_super) {
      * Create a game scene
      */
     p.createGameScene = function () {
+        var layoutController = LayoutController.getIntance();
+        this.addChild(layoutController);
         var user = new User();
         user.setinformation("982049377");
         var guanyu = new Hero();
@@ -156,8 +158,6 @@ var Main = (function (_super) {
         console.log("user1关羽上阵战斗力" + i);
         console.log("user1关羽atk" + guanyu.Atk);
         console.log("user1关羽def" + guanyu.Def);
-        var la = new LayoutController();
-        var la2 = new LayoutController();
         /// var user2 = new User();
         // user2.setinformation("wang")
         // var guanyu2 = new Hero();

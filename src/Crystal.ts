@@ -1,5 +1,3 @@
-
-
 class Crystal extends egret.DisplayObjectContainer implements Objectdetail {
     static Id = 0;
     quality: crystalQualitySort;
@@ -10,7 +8,8 @@ class Crystal extends egret.DisplayObjectContainer implements Objectdetail {
         Crystal.Id++;
         this.tempid = Crystal.Id;
         this.properties = new Property();
-        this.addChild(this.properties._bitmap);
+        LayoutController.getIntance().addLayer(LayerType.UILayer,this.properties._bitmap);
+        //this.addChild(this.properties._bitmap);
     }
 
     getClassName(): String {

@@ -16,16 +16,16 @@ var Cache: MethodDecorator = (target: any, propertyName, desc: PropertyDescripto
     return desc;
 }
 
-class Hero extends egret.DisplayObjectContainer implements Objectdetail{
+class Hero extends egret.DisplayObjectContainer implements Objectdetail {
     static Id = 0;
     exp: Bignumber;
     level: number = 0;
     physique: number = 0;//体质
     properties: Property;
 
-    getClassName(){return "Hero";}
+    getClassName() { return "Hero"; }
 
-    getQualityDescript(){return heroQualitySort[this.quality];}
+    getQualityDescript() { return heroQualitySort[this.quality]; }
 
     // getAtkDiscript(){return this.properties.atkDiscript;}
 
@@ -103,16 +103,7 @@ class Hero extends egret.DisplayObjectContainer implements Objectdetail{
     public flag: boolean = false;
     @Cache
     get fightPower() {
-        // if (this._cacheHeroFightPower && !Hero.flag) {
-        //     console.log("Hero.flag" + Hero.flag);
-        //     return this._cacheHeroFightPower;
-        // }
-        // if (!this._cacheHeroFightPower) {
         var result = this.Atk * 1.2 + this.Def * 0.8;//攻击防御已经计算到hero中了
-        //this.equipments.forEach(equipment => result += equipment.fightPower);
-        // this._cacheHeroFightPower = result;
-        // }
-        //console.log(result);
         return result;
     }
 
@@ -124,17 +115,19 @@ class Hero extends egret.DisplayObjectContainer implements Objectdetail{
         Hero.Id++;
         this.properties = new Property();
         this.tempid = Hero.Id;
+        //LayoutController.getIntance().addLayer(LayerType.UILayer, this.properties._bitmap);
         this.addChild(this.properties._bitmap);
     }
     tempid = 0;
     setinformation(id: string, name: string, atk: number, def: number, quality: heroQualitySort, bitmap: egret.Bitmap) {
-        this.properties.setInformation(id,this.tempid, name, atk, def, bitmap);
+        this.properties.setInformation(id, this.tempid, name, atk, def, bitmap);
         this.name = name;
         this.quality = quality;
         this.properties._bitmap.touchEnabled = true;
         var heroBar = new heroStatusBar();
         this.properties._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
             heroBar.setInformation(this);
+            //LayoutController.getIntance().addLayer(LayerType.UILayer, heroBar);
             this.addChild(heroBar);
             //this.swapChildren(heroBar,this._bitmap);
         }, this);

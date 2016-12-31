@@ -42,6 +42,7 @@ var Hero = (function (_super) {
         Hero.Id++;
         this.properties = new Property();
         this.tempid = Hero.Id;
+        //LayoutController.getIntance().addLayer(LayerType.UILayer, this.properties._bitmap);
         this.addChild(this.properties._bitmap);
     }
     var d = __define,c=Hero,p=c.prototype;
@@ -113,16 +114,7 @@ var Hero = (function (_super) {
     );
     d(p, "fightPower"
         ,function () {
-            // if (this._cacheHeroFightPower && !Hero.flag) {
-            //     console.log("Hero.flag" + Hero.flag);
-            //     return this._cacheHeroFightPower;
-            // }
-            // if (!this._cacheHeroFightPower) {
             var result = this.Atk * 1.2 + this.Def * 0.8; //攻击防御已经计算到hero中了
-            //this.equipments.forEach(equipment => result += equipment.fightPower);
-            // this._cacheHeroFightPower = result;
-            // }
-            //console.log(result);
             return result;
         }
     );
@@ -135,7 +127,8 @@ var Hero = (function (_super) {
         var heroBar = new heroStatusBar();
         this.properties._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             heroBar.setInformation(_this);
-            _this.addChild(heroBar);
+            LayoutController.getIntance().addLayer(LayerType.UILayer, heroBar);
+            //this.addChild(heroBar);
             //this.swapChildren(heroBar,this._bitmap);
         }, this);
     };

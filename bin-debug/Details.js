@@ -45,7 +45,8 @@ var Details = (function (_super) {
         FightPower.scaleX = 0.7;
         FightPower.scaleY = 0.7;
         this.contentField.addChild(FightPower);
-        this.addChild(this.contentField);
+        LayoutController.getIntance().addLayer(LayerType.DetailLayer, this.contentField);
+        //this.addChild(this.contentField);
     };
     return Details;
 }(egret.DisplayObjectContainer));

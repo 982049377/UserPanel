@@ -8,7 +8,8 @@ var Equipment = (function (_super) {
         Equipment.Id++;
         this.tempid = Equipment.Id;
         this.properties = new Property();
-        this.addChild(this.properties._bitmap);
+        LayoutController.getIntance().addLayer(LayerType.UILayer, this.properties._bitmap);
+        // this.addChild(this.properties._bitmap);
     }
     var d = __define,c=Equipment,p=c.prototype;
     p.getClassName = function () {
@@ -64,13 +65,7 @@ var Equipment = (function (_super) {
     d(p, "fightPower"
         // private _cacheEquipmentFightPower = 0;
         ,function () {
-            // if (!this._cacheEquipmentFightPower) {
             var result = this.Atk * 1.2 + this.Def * 0.8;
-            //this.crystals.forEach(crystal => result += crystal.fightPower);
-            // this._cacheEquipmentFightPower = result;
-            // }
-            // return this._cacheEquipmentFightPower;
-            //console.log(result);
             return result;
         }
     );

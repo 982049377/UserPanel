@@ -6,7 +6,8 @@ var Crystal = (function (_super) {
         Crystal.Id++;
         this.tempid = Crystal.Id;
         this.properties = new Property();
-        this.addChild(this.properties._bitmap);
+        LayoutController.getIntance().addLayer(LayerType.UILayer, this.properties._bitmap);
+        //this.addChild(this.properties._bitmap);
     }
     var d = __define,c=Crystal,p=c.prototype;
     p.getClassName = function () {
