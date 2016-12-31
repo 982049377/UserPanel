@@ -15,6 +15,7 @@ var game_file_list = [
 	"bin-debug/Equipment.js",
 	"bin-debug/Hero.js",
 	"bin-debug/heroStatusBar.js",
+	"bin-debug/LayoutController.js",
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/Objectdetail.js",

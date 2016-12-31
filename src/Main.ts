@@ -131,10 +131,10 @@ class Main extends egret.DisplayObjectContainer {
         qinglongyanyuedao.setinformation("we001", 10, 0, "青龙偃月刀", equipmentQualitySort.Story, bitmap);
         var atkCrystal = new Crystal();
         bitmap = this.createBitmapByName("atk001_png");
-        atkCrystal.setinformation("atk001", 5, 0, "攻击宝石",bitmap)
+        atkCrystal.setinformation("atk001", 5, 0, "攻击宝石", bitmap)
         var defCrystal = new Crystal();
         bitmap = this.createBitmapByName("def001_png");
-        defCrystal.setinformation("def001", 0, 5, "防御宝石",bitmap)
+        defCrystal.setinformation("def001", 0, 5, "防御宝石", bitmap)
 
         guanyu.x = 100;
         guanyu.y = 100;
@@ -183,7 +183,8 @@ class Main extends egret.DisplayObjectContainer {
         console.log("user1关羽atk" + guanyu.Atk);
         console.log("user1关羽def" + guanyu.Def);
 
-
+        var la = new LayoutController();
+        
         /// var user2 = new User();
         // user2.setinformation("wang")
         // var guanyu2 = new Hero();
