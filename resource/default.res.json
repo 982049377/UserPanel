@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "bg_jpg,egret_icon_png,description_json,001_png,002_png,weapan001_png,bg_png,Border_png,atk001_png,def001_png,detailbg_png",
+			"keys": "bg_jpg,egret_icon_png,description_json,001_png,002_png,weapan001_png,bg_png,Border_png,atk001_png,def001_png,detailbg_png,return_png",
 			"name": "preload"
 		}
 	],
@@ -60,6 +60,11 @@
 			"name": "detailbg_png",
 			"type": "image",
 			"url": "assets/detailbg.png"
+		},
+		{
+			"name": "return_png",
+			"type": "image",
+			"url": "assets/return.png"
 		}
 	]
 }

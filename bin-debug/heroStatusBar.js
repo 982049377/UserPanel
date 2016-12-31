@@ -1,34 +1,47 @@
 var heroStatusBar = (function (_super) {
     __extends(heroStatusBar, _super);
     function heroStatusBar() {
+        var _this = this;
         _super.call(this);
         this.gridX = 90;
         this.gridY = 60;
         this.gridOffset = 10;
+        this.container = new egret.DisplayObjectContainer();
+        //this.addChild(this.container);
         this.background = new egret.Bitmap();
         this.scaleX = 1.2;
         this.scaleY = 1.2;
-        this.addChild(this.background);
+        this.container.addChild(this.background);
         this.role = new egret.Bitmap();
         this.role.x = 30;
         this.role.y = 30;
         this.role.scaleX = 0.7;
         this.role.scaleY = 0.7;
-        this.addChild(this.role);
+        this.container.addChild(this.role);
         this.barname = new egret.TextField();
         this.barname.textColor = 0X000000;
         this.barname.y = 240;
         this.barname.x = 50;
-        this.addChild(this.barname);
+        this.container.addChild(this.barname);
         this.equipmentField = new egret.DisplayObjectContainer();
         this.initEquipmentField();
         this.equipmentField.x = 50;
         this.equipmentField.y = 20;
-        this.addChild(this.equipmentField);
+        this.container.addChild(this.equipmentField);
         this.propertyField = new egret.DisplayObjectContainer();
         this.propertyField.x = 120;
         this.propertyField.y = 120;
-        this.addChild(this.propertyField);
+        this.container.addChild(this.propertyField);
+        var returnButton = new egret.Bitmap();
+        returnButton.texture = RES.getRes("return_png");
+        tool.anch(returnButton);
+        returnButton.x = 370;
+        returnButton.y = 210;
+        this.container.addChild(returnButton);
+        returnButton.touchEnabled = true;
+        returnButton.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
+            _this.removeChild(_this.container);
+        }, this);
     }
     var d = __define,c=heroStatusBar,p=c.prototype;
     p.initPropertyField = function (hero) {
@@ -97,6 +110,7 @@ var heroStatusBar = (function (_super) {
         for (var i = 0; i < hero.equipmentCurrent; i++) {
             this.grids[i].Tap();
         }
+        this.addChild(this.container);
     };
     return heroStatusBar;
 }(egret.DisplayObjectContainer));
@@ -128,7 +142,8 @@ var Grid = (function (_super) {
         this.contentBitmap.touchEnabled = true;
         this.contentBitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             details.setInformation(_this.content);
-            _this.addChild(details);
+            //this.addChild(details);
+            LayoutController.getIntance().addLayer(LayerType.DetailLayer, details);
             //this.swapChildren(details,content.parent)
             //console.log("123456789123446587");
         }, this);

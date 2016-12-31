@@ -127,7 +127,10 @@ var Hero = (function (_super) {
         var heroBar = new heroStatusBar();
         this.properties._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             heroBar.setInformation(_this);
+            heroBar.x = 100;
+            heroBar.y = 100;
             LayoutController.getIntance().addLayer(LayerType.UILayer, heroBar);
+            //console.log("点击人物");
             //this.addChild(heroBar);
             //this.swapChildren(heroBar,this._bitmap);
         }, this);

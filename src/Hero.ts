@@ -125,10 +125,14 @@ class Hero extends egret.DisplayObjectContainer implements Objectdetail {
         this.quality = quality;
         this.properties._bitmap.touchEnabled = true;
         var heroBar = new heroStatusBar();
+
         this.properties._bitmap.addEventListener(egret.TouchEvent.TOUCH_TAP, () => {
             heroBar.setInformation(this);
-            //LayoutController.getIntance().addLayer(LayerType.UILayer, heroBar);
-            this.addChild(heroBar);
+            heroBar.x = 100;
+            heroBar.y = 100;
+            LayoutController.getIntance().addLayer(LayerType.UILayer, heroBar);
+            //console.log("点击人物");
+            //this.addChild(heroBar);
             //this.swapChildren(heroBar,this._bitmap);
         }, this);
     }
